@@ -1,32 +1,65 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view class="content"></router-view>
+    <van-tabbar
+      v-model="active"
+      :fixed="false"
+      class="navbar"
+      active-color="tomato"
+    >
+      <van-tabbar-item name="main" :to="{ name: 'Main' }" icon="wap-home-o"
+        >首页</van-tabbar-item
+      >
+      <van-tabbar-item
+        name="category"
+        :to="{ name: 'Category' }"
+        icon="description"
+        >分类</van-tabbar-item
+      >
+      <van-tabbar-item name="list" :to="{ name: 'List' }" icon="shopping-cart-o"
+        >影库</van-tabbar-item
+      >
+      <van-tabbar-item name="mypage" :to="{ name: 'MyPage' }" icon="user-o"
+        >我的</van-tabbar-item
+      >
+    </van-tabbar>
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+  components: {},
+  data() {
+    return {
+      active: "main",
+    };
+  },
+};
+</script>
+
 <style>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-#nav {
-  padding: 30px;
+.content {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.navbar {
+  border-top: 1px solid tomato;
 }
 </style>
