@@ -27,12 +27,3 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-贾凯莉可漂亮
-
-孟永祥真丑
-
-孟勇祥
-
-新加项
-张威澳
