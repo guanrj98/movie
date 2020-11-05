@@ -1,12 +1,12 @@
 import Axios from "axios"
 import { Notify } from "vant"
-import { ServerUrl } from "./urlHeader"
+import { serverUrl } from "./HeaderUrl"
 import { removeToken } from "./token"
 
 
 const instance = Axios.create({
   timeout: 5000,//请求超时
-  baseURL: ServerUrl,//基础地址
+  baseURL: serverUrl,//基础地址
 });
 
 
