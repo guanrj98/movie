@@ -19,7 +19,7 @@
         placeholder="请输入密码"
         :rules="[{ required: true }]"
       />
-      <div style="margin: 16px;">
+      <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">
           登录
         </van-button>

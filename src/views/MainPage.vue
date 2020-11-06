@@ -98,8 +98,8 @@ body {
 .newMovie {
   min-height: 50%;
   width: 100%;
-  margin-top: 5%;
-  padding-top: 13%;
+  margin-top: 10%;
+  padding-top: 8%;
   overflow: auto;
 }
 .newMovie::-webkit-scrollbar {
@@ -107,10 +107,9 @@ body {
 }
 .newMovie h4 {
   position: fixed;
-  top: 25%;
+  top: 28%;
   left: 5%;
   z-index: 999;
-  /* margin-left: 5%; */
   text-indent: 1em;
   height: 1.7em;
   width: 30%;

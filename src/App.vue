@@ -3,10 +3,10 @@
     <router-view class="content"></router-view>
     <van-tabbar
       v-model="active"
+      route
       :fixed="false"
       class="navbar"
       active-color="tomato"
-      route
     >
       <van-tabbar-item name="main" :to="{ name: 'Main' }" icon="wap-home-o"
         >首页</van-tabbar-item
@@ -47,6 +47,10 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+* {
+  margin: 0;
+  padding: 0;
 }
 #app {
   width: 100%;
