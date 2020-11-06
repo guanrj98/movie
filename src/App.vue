@@ -6,6 +6,7 @@
       :fixed="false"
       class="navbar"
       active-color="tomato"
+      route
     >
       <van-tabbar-item name="main" :to="{ name: 'Main' }" icon="wap-home-o"
         >首页</van-tabbar-item
