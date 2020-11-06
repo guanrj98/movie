@@ -6,7 +6,7 @@
     <van-form @submit="onSubmit">
       <van-field
         v-model="username"
-        name="username"
+        name="userName"
         label="用户名"
         placeholder="请输入用户名"
         :rules="[{ required: true }]"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { loginApi } from "@/services/User";
+import { loginApi } from "@/services/auth";
 import { setToken } from "@/utils/token";
 import { Notify } from "vant";
 export default {
@@ -42,8 +42,10 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      const res = loginApi(values);
-      if (res.code == "success") {
+      const res = await loginApi(values);
+      console.log(values);
+      if (res.code === 1) {
+        console.log(1);
         setToken(res.token);
         Notify({
           type: "success",
@@ -52,9 +54,12 @@ export default {
       } else {
         Notify({
           type: "warning",
-          message: res.message,
+          message: res.info,
         });
       }
+      this.username = "";
+      this.password = "";
+      console.log(res);
     },
   },
 };

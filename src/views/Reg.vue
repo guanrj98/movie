@@ -1,6 +1,12 @@
 <template>
   <div class="reg-content">
-    <van-uploader v-model="fileList" multiple :max-count="1" />
+    <van-uploader
+      v-model="fileList"
+      :after-read="callBa"
+      multiple
+      :max-size="1024 * 500"
+      :max-count="1"
+    />
     <van-form @submit="onSubmit">
       <van-field
         v-model="nickname"
@@ -46,7 +52,7 @@
 <script>
 // import { Uploader } from "vant";
 import { Notify } from "vant";
-import { regAPI } from "@/services/auth";
+import { regApi } from "@/services/auth";
 import { setToken } from "@/utils/token";
 
 export default {
@@ -58,10 +64,17 @@ export default {
       repwd: "",
       password: "",
       fileList: [],
+      uploadImg: "",
     };
   },
   methods: {
+    //文件上传 图片的回调函数
+    callBa(imgMessage) {
+      console.log(imgMessage);
+      this.uploadImg = imgMessage.content;
+    },
     async onSubmit(values) {
+      values = { ...values, avatar: this.uploadImg };
       if (this.password != this.repwd) {
         Notify({
           type: "danger",
@@ -70,8 +83,8 @@ export default {
         return;
       }
       console.log(values);
-      const regmess = await regAPI(values);
-      if (regmess.code === "success") {
+      const regmess = await regApi(values);
+      if (regmess.code === 1) {
         //注册成功则将token数据存到本地
         setToken(regmess.token);
         //跳转页面
@@ -81,7 +94,7 @@ export default {
       } else {
         Notify({
           type: "danger",
-          message: regmess.message,
+          message: regmess.info,
         });
       }
       console.log(regmess);
