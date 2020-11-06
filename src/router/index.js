@@ -28,14 +28,19 @@ const routes = [
     component: () => import("@/views/MyPage.vue"),
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/Login.vue"),
+  },
+  {
+    path: "/reg",
+    name: "Reg",
+    component: () => import("@/views/Reg.vue"),
+  },
+  {
     path: "/*",
     name: "NoPage",
     component: () => import("@/views/NoPage.vue"),
-  },
-  {
-    path: "/reg*",
-    name: "Reg",
-    component: () => import("@/views/Reg.vue"),
   },
 ];
 
