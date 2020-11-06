@@ -3,6 +3,7 @@
     <router-view class="content"></router-view>
     <van-tabbar
       v-model="active"
+      route
       :fixed="false"
       class="navbar"
       active-color="tomato"
@@ -46,6 +47,10 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+* {
+  margin: 0;
+  padding: 0;
 }
 #app {
   width: 100%;
