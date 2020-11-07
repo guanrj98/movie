@@ -38,7 +38,7 @@
         placeholder="再一次输入密码"
         :rules="[{ required: true }]"
       />
-      <div style="margin: 16px;">
+      <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">
           注册
         </van-button>
