@@ -38,7 +38,7 @@ const routes = [
     component: () => import("@/views/Reg.vue"),
   },
   {
-    path: "/*",
+    path: "*",
     name: "NoPage",
     component: () => import("@/views/NoPage.vue"),
   },

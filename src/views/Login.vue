@@ -43,9 +43,9 @@ export default {
   methods: {
     async onSubmit(values) {
       const res = await loginApi(values);
-      console.log(values);
+      // console.log(values);
       if (res.code === 1) {
-        console.log(1);
+        // console.log(1);
         setToken(res.token);
         Notify({
           type: "success",
@@ -59,7 +59,7 @@ export default {
       }
       this.username = "";
       this.password = "";
-      console.log(res);
+      // console.log(res);
     },
   },
 };
