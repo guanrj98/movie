@@ -45,7 +45,6 @@ export default {
       const res = await loginApi(values);
       console.log(values);
       if (res.code === 1) {
-        console.log(1);
         setToken(res.token);
         Notify({
           type: "success",
