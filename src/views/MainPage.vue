@@ -15,6 +15,7 @@
           :key="item.id"
           :text="nameSplice(item.name)"
           :icon="item.coverImage"
+          :to="{ name: 'Details', query: { movieId: item.id } }"
         >
           <!-- <van-image :src="item.coverImage" /> -->
         </van-grid-item>

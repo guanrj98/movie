@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-tabs v-model="active" @click="onClick">
+    <van-tabs v-model="active" @click="onClick" color=" rgba(63, 0, 255, 0.5)">
       <van-tab title="全部" name="all">
         <!-- <van-list
           v-model="loading"
@@ -41,6 +41,7 @@
           :desc="item.desc"
           :title="item.name"
           :thumb="item.coverImage"
+          :to="{ name: 'Details', query: { movieId: item.id } }"
           class="movie"
         />
       </van-list>
@@ -64,17 +65,14 @@ export default {
   },
   async created() {
     this.active = this.$route.query.category_id || "all";
-    console.log(this.active);
+    // console.log(this.active);
     this.onLoad(this.$route.query.category_id);
     const listCat = await getCategoriesApi();
     this.categories = listCat;
-    listCat.forEach((element) => {
-      this.movies["m" + element.id] = [];
-    });
   },
   methods: {
     async onLoad(id) {
-      console.log(this.active);
+      // console.log(this.active);
       this.pageData.filter((item) => {
         if (item.id == this.active && item.page > item.pages) {
           this.finished = true;
@@ -117,11 +115,11 @@ export default {
       this.active = id;
       // console.log(this.movies);
     },
-    onClick(name, title) {
+    onClick() {
       this.pageData = [];
       this.movies = [];
       this.onLoad();
-      console.log(name, title);
+      // console.log(name, title);
     },
   },
 };
@@ -169,7 +167,6 @@ export default {
   overflow: hidden;
   white-space: pre-wrap;
 }
-.van-list img {
-  border-radius: 0px;
+.nav {
 }
 </style>
