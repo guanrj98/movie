@@ -1,12 +1,16 @@
 <template>
   <div class="reg-content">
-    <van-uploader
-      v-model="fileList"
-      :after-read="callBa"
-      multiple
-      :max-size="1024 * 500"
-      :max-count="1"
-    />
+    <!-- 头像上传 -->
+    <el-upload
+      class="avatar-uploader"
+      action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/"
+      :show-file-list="false"
+      :on-success="handleAvatarSuccess"
+      :before-upload="beforeAvatarUpload"
+    >
+      <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+      <i v-else class="el-icon-camera avatar-uploader-icon"></i>
+    </el-upload>
     <van-form @submit="onSubmit">
       <van-field
         v-model="nickname"
@@ -64,17 +68,32 @@ export default {
       repwd: "",
       password: "",
       fileList: [],
-      uploadImg: "",
+      imageUrl: "",
     };
   },
   methods: {
-    //文件上传 图片的回调函数
-    callBa(imgMessage) {
-      console.log(imgMessage);
-      this.uploadImg = imgMessage.content;
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      //图片路径
+      console.log(this.imageUrl);
     },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
+
     async onSubmit(values) {
-      values = { ...values, avatar: this.uploadImg };
+      // values = { ...values, avatar: this.uploadImg };
+      values = { ...values, avatar: this.imageUrl };
+
       if (this.password != this.repwd) {
         Notify({
           type: "danger",
@@ -111,11 +130,30 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.van-uploader__upload {
-  border-radius: 50%;
+.avatar-uploader {
+  margin-bottom: 20px;
 }
-.van-uploader__preview,
-.van-image {
+.avatar-uploader .el-upload {
+  border: 1px solid #d9d9d9;
   border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 45px;
+  color: #cdd4db;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+}
+.avatar {
+  width: 150px;
+  height: 150px;
+  display: block;
 }
 </style>

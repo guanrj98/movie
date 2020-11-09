@@ -1,9 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import Vant from "vant";
 import "vant/lib/index.css"; //引入css文件
 
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+
 Vue.use(Vant);
+Vue.use(ElementUI);
 Vue.use(VueRouter);
 
 const routes = [
@@ -52,6 +57,5 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
-
 
 export default router;

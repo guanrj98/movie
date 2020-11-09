@@ -41,7 +41,7 @@
           :desc="item.desc"
           :title="item.name"
           :thumb="item.coverImage"
-          :to="{ name: 'Details', query: { movieId: item.id } }"
+          @click="toDetails(item.id)"
           class="movie"
         />
       </van-list>
@@ -121,6 +121,12 @@ export default {
       this.onLoad();
       // console.log(name, title);
     },
+    toDetails(id) {
+      this.$router.push({
+        name: "Details",
+        query: { movieId: id },
+      });
+    },
   },
 };
 </script>
@@ -166,7 +172,5 @@ export default {
   -webkit-line-clamp: 4;
   overflow: hidden;
   white-space: pre-wrap;
-}
-.nav {
 }
 </style>
