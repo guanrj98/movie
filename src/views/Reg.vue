@@ -3,7 +3,7 @@
     <!-- 头像上传 -->
     <el-upload
       class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
+      action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/"
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"
@@ -14,6 +14,7 @@
     <van-form @submit="onSubmit">
       <van-field
         v-model="nickname"
+        autocomplete="off"
         name="nickName"
         label="昵称"
         placeholder="请填写昵称"
@@ -21,6 +22,7 @@
       />
       <van-field
         v-model="username"
+        autocomplete="off"
         name="userName"
         label="用户名"
         placeholder="请填写用户名"
@@ -28,6 +30,7 @@
       />
       <van-field
         v-model="password"
+        autocomplete="off"
         type="password"
         name="password"
         label="密码"
@@ -36,6 +39,7 @@
       />
       <van-field
         v-model="repwd"
+        autocomplete="off"
         type="password"
         name="repwd"
         label="确认密码"
@@ -103,6 +107,7 @@ export default {
       }
       console.log(values);
       const regmess = await regApi(values);
+      console.log(regmess.code);
       if (regmess.code === 1) {
         //注册成功则将token数据存到本地
         setToken(regmess.token);
@@ -113,10 +118,11 @@ export default {
       } else {
         Notify({
           type: "danger",
-          message: regmess.info,
+          message: "该用户已经注册过了",
         });
       }
       console.log(regmess);
+      console.log(regmess.avatar);
     },
   },
 };
