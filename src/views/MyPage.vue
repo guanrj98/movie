@@ -1,8 +1,13 @@
 <template>
   <div>
-    <div class="top" v-for="i in users" :key="i.id">
-      <van-image round width="3rem" height="3rem" :src="i.gender" />
-      <p>欢迎您！{{ i.nickName }}</p>
+    <div class="top">
+      <van-image
+        round
+        width="3rem"
+        height="3rem"
+        :src="users.avatar | dalImg"
+      />
+      <p>欢迎您！{{ this.users.nickName }}</p>
     </div>
     <div class="main">
       <van-list border>
@@ -31,6 +36,21 @@
         <van-icon name="arrow" />
       </van-list>
       <van-list border>
+        <van-icon name="notes-o" />
+        <van-cell title="积分" />
+        <van-icon name="arrow" />
+      </van-list>
+      <van-list border>
+        <van-icon name="orders-o" />
+        <van-cell title="订单" />
+        <van-icon name="arrow" />
+      </van-list>
+      <van-list border>
+        <van-icon name="apps-o" />
+        <van-cell title="更多" />
+        <van-icon name="arrow" />
+      </van-list>
+      <van-list border>
         <van-icon name="setting-o" @click="goBack()" />
         <van-cell title="退出登录" @click="goBack()" />
         <van-icon name="arrow" @click="goBack()" />
@@ -40,42 +60,60 @@
 </template>
 
 <script>
-// import axios from "axios"
-// import { removeToken } from "@/utils/token";
+import { removeToken } from "@/utils/token";
+import { getUserInfo } from "@/services/auth";
 export default {
   data() {
     return {
-      users: [
-        {
-          id: 1,
-          nickName: "暴龙战士",
-          avatar: "男",
-          gender:
-            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1478577125,3953054262&fm=26&gp=0.jpg",
-        },
-      ],
+      users: [],
     };
   },
   methods: {
+    //退出登录
     goBack() {
       this.$router.push({
         name: "Login",
       });
+      removeToken();
     },
+    //我的收藏
     myFavorite() {
       this.$router.push({
         name: "MyCollection",
+        params: {
+          id: this.users.id,
+        },
+        query: {
+          id: this.users.id,
+        },
       });
-      console.log(1);
     },
+    //改变密码
     changePwd() {
-      console.log(2);
+      this.$router.push({
+        name: "ChangePwd",
+        query: {
+          pwd: this.$route.query.pwd,
+        },
+      });
     },
+    //修改用户信息
     changeInfo() {
-      console.log(3);
+      this.$router.push({
+        name: "ChangeInfo",
+        query: {
+          id: this.users.id,
+        },
+      });
     },
   },
-  created() {},
+  async created() {
+    console.log(this.$route.query.pwd);
+    const res = await getUserInfo();
+    console.log(res);
+    this.users = res;
+    console.log(this.users.avatar);
+  },
 };
 </script>
 

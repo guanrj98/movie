@@ -6,22 +6,22 @@
     <van-form @submit="onSubmit">
       <van-field
         v-model="username"
-        name="userName"
         autocomplete="off"
+        name="userName"
         label="用户名"
         placeholder="请输入用户名"
         :rules="[{ required: true }]"
       />
       <van-field
         v-model="password"
+        autocomplete="off"
         type="password"
         name="password"
-        autocomplete="off"
         label="密码"
         placeholder="请输入密码"
         :rules="[{ required: true }]"
       />
-      <div style="margin: 16px;">
+      <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">
           登录
         </van-button>
@@ -55,6 +55,12 @@ export default {
           message: res.info,
           icon: "checked",
         });
+        this.$router.push({
+          name: "MyPage",
+          query: {
+            pwd: this.password,
+          },
+        });
       }
       //登录失败
       else {
@@ -64,8 +70,8 @@ export default {
         });
       }
       //点击登录验证之后清空输入框
-      this.username = "";
-      this.password = "";
+      // this.username = "";
+      // this.password = "";
     },
   },
 };

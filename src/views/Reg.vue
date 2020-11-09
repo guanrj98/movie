@@ -15,17 +15,17 @@
     <van-form @submit="onSubmit">
       <van-field
         v-model="nickname"
+        autocomplete="off"
         name="nickName"
         label="昵称"
-        autocomplete="off"
         placeholder="请填写昵称"
         :rules="[{ required: true }]"
       />
       <van-field
         v-model="username"
+        autocomplete="off"
         name="userName"
         label="用户名"
-        autocomplete="off"
         placeholder="请填写用户名"
         :rules="[{ required: true }]"
       />
@@ -39,19 +39,19 @@
       />
       <van-field
         v-model="password"
+        autocomplete="off"
         type="password"
         name="password"
-        autocomplete="off"
         label="密码"
         placeholder="请填写密码"
         :rules="[{ required: true }]"
       />
       <van-field
         v-model="repwd"
+        autocomplete="off"
         type="password"
         name="repwd"
         label="确认密码"
-        autocomplete="off"
         placeholder="再一次输入密码"
         :rules="[{ required: true }]"
       />
@@ -150,6 +150,9 @@ export default {
             this.show = false;
             this.$router.push({
               name: "Login",
+              // query: {
+              //   img: this.imageUrl,
+              // },
             });
           }, 3000);
         }
