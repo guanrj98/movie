@@ -6,6 +6,7 @@
     <van-form @submit="onSubmit">
       <van-field
         v-model="username"
+        autocomplete="off"
         name="userName"
         label="用户名"
         placeholder="请输入用户名"
@@ -13,13 +14,14 @@
       />
       <van-field
         v-model="password"
+        autocomplete="off"
         type="password"
         name="password"
         label="密码"
         placeholder="请输入密码"
         :rules="[{ required: true }]"
       />
-      <div style="margin: 16px;">
+      <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">
           登录
         </van-button>
@@ -32,7 +34,7 @@
 <script>
 import { loginApi } from "@/services/auth";
 import { setToken } from "@/utils/token";
-import { Notify } from "vant";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -42,23 +44,34 @@ export default {
   },
   methods: {
     async onSubmit(values) {
+      //调接口
       const res = await loginApi(values);
       // console.log(values);
+      console.log(values);
+      console.log(res);
+      //登录成功
       if (res.code === 1) {
         setToken(res.token);
-        Notify({
-          type: "success",
-          message: "登录成功!",
-        });
-      } else {
-        Notify({
-          type: "warning",
+        Toast({
           message: res.info,
+          icon: "checked",
+        });
+        this.$router.push({
+          name: "MyPage",
+          query: {
+            pwd: this.password,
+          },
         });
       }
-      this.username = "";
-      this.password = "";
-      // console.log(res);
+      //登录失败
+      else {
+        Toast({
+          message: res.info,
+          icon: "warning",
+        });
+        this.username = "";
+        this.password = "";
+      }
     },
   },
 };

@@ -33,6 +33,16 @@ const routes = [
     component: () => import("@/views/MyPage.vue"),
   },
   {
+    path: "/changeInfo",
+    name: "ChangeInfo",
+    component: () => import("@/views/ChangeInfo.vue"),
+  },
+  {
+    path: "/changePwd",
+    name: "ChangePwd",
+    component: () => import("@/views/ChangePwd.vue"),
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/Login.vue"),
@@ -46,6 +56,11 @@ const routes = [
     path: "/details",
     name: "Details",
     component: () => import("@/views/Details.vue"),
+  },
+  {
+    path: "/mycollection",
+    name: "MyCollection",
+    component: () => import("@/views/MyCollection.vue"),
   },
   {
     path: "*",

@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { Notify } from "vant";
 import { serverUrl } from "./HeaderUrl";
-import { removeToken } from "./token";
+import { removeToken, getToken } from "./token";
 
 const instance = Axios.create({
   timeout: 5000, //请求超时
@@ -17,7 +17,7 @@ const instance = Axios.create({
 //    1. 在请求头添加token
 instance.interceptors.request.use(
   function(config) {
-    // config.headers.authorization = "Bearer " + getToken();//请求头添加token
+    config.headers.token = getToken(); //请求头添加token
     return config;
   },
   function(err) {
