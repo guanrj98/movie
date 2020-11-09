@@ -41,6 +41,7 @@
 
 <script>
 // import axios from "axios"
+// import { removeToken } from "@/utils/token";
 export default {
   data() {
     return {
@@ -62,6 +63,9 @@ export default {
       });
     },
     myFavorite() {
+      this.$router.push({
+        name: "MyCollection",
+      });
       console.log(1);
     },
     changePwd() {

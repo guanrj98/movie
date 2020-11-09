@@ -7,6 +7,7 @@
       <van-field
         v-model="username"
         name="userName"
+        autocomplete="off"
         label="用户名"
         placeholder="请输入用户名"
         :rules="[{ required: true }]"
@@ -15,6 +16,7 @@
         v-model="password"
         type="password"
         name="password"
+        autocomplete="off"
         label="密码"
         placeholder="请输入密码"
         :rules="[{ required: true }]"
@@ -32,7 +34,7 @@
 <script>
 import { loginApi } from "@/services/auth";
 import { setToken } from "@/utils/token";
-import { Notify } from "vant";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -42,23 +44,28 @@ export default {
   },
   methods: {
     async onSubmit(values) {
+      //调接口
       const res = await loginApi(values);
       console.log(values);
+      console.log(res);
+      //登录成功
       if (res.code === 1) {
         setToken(res.token);
-        Notify({
-          type: "success",
-          message: "登录成功!",
-        });
-      } else {
-        Notify({
-          type: "warning",
+        Toast({
           message: res.info,
+          icon: "checked",
         });
       }
+      //登录失败
+      else {
+        Toast({
+          message: res.info,
+          icon: "warning",
+        });
+      }
+      //点击登录验证之后清空输入框
       this.username = "";
       this.password = "";
-      console.log(res);
     },
   },
 };

@@ -43,7 +43,12 @@ const routes = [
     component: () => import("@/views/Reg.vue"),
   },
   {
-    path: "/*",
+    path: "/mycollection",
+    name: "MyCollection",
+    component: () => import("@/views/MyCollection.vue"),
+  },
+  {
+    path: "*",
     name: "NoPage",
     component: () => import("@/views/NoPage.vue"),
   },
