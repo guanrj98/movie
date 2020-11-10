@@ -41,6 +41,7 @@
 <script>
 import { Notify } from "vant";
 import { ChangeUserPwdAPI } from "@/services/auth";
+import { getLocalPassword, setLocalPassword } from "@/utils/userMessage";
 export default {
   data() {
     return {
@@ -57,7 +58,7 @@ export default {
       console.log(this.oldPassword);
       console.log(this.newPassword);
       console.log(this.RenewPassword);
-      if (this.oldPassword != localStorage.getItem("pwd")) {
+      if (this.oldPassword != getLocalPassword()) {
         Notify({ type: "danger", message: "与老密码不一致" });
       } else {
         if (this.newPassword != this.RenewPassword) {
@@ -69,7 +70,7 @@ export default {
           });
           console.log(res);
           Notify({ type: "success", message: "密码修改成功" });
-          localStorage.setItem("pwd", this.newPassword);
+          setLocalPassword(this.newPassword);
           setTimeout(() => {
             this.$router.push({
               name: "MyPage",

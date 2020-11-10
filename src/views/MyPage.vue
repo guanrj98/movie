@@ -65,6 +65,7 @@ import { Toast } from "vant";
 
 import { clearToken } from "@/utils/token";
 import { getUserInfo } from "@/services/auth";
+import { getLocalPassword } from "@/utils/userMessage";
 export default {
   data() {
     return {
@@ -101,19 +102,16 @@ export default {
     changeInfo() {
       this.$router.push({
         name: "ChangeInfo",
-        query: {
-          id: this.users.id,
-        },
       });
     },
   },
   async created() {
-    console.log(localStorage.getItem("pwd"));
+    console.log(getLocalPassword());
     const res = await getUserInfo();
     console.log(res);
     this.users = res;
     console.log(this.users.avatar);
-    if (localStorage.getItem("pwd") === "undefined") {
+    if (getLocalPassword() === "undefined") {
       clearToken();
       this.$router.push({
         name: "Login",

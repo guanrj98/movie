@@ -54,7 +54,6 @@ export default {
       //登录成功
       if (res.code === 1) {
         setToken(res.token);
-        localStorage.setItem("pwd", this.password);
         Toast({
           message: res.info,
           icon: "checked",
