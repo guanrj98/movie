@@ -14,6 +14,11 @@ export function getUserInfo() {
   return get("/api/v1/users/info");
 }
 
+//把本地地址转为网络地址
+export function getImgUrl(image) {
+  return post("/api/v1/common/upload_file", image);
+}
+
 //修改用户密码
 export function ChangeUserPwdAPI(user) {
   return post("/api/v1/users/change_pwd", user);

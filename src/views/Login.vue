@@ -33,7 +33,9 @@
 
 <script>
 import { loginApi } from "@/services/auth";
+import { getUserInfo } from "@/services/auth";
 import { setToken } from "@/utils/token";
+import { setLocalId, setLocalPassword } from "@/utils/userMessage";
 import { Toast } from "vant";
 export default {
   data() {
@@ -60,6 +62,9 @@ export default {
         this.$router.push({
           name: "MyPage",
         });
+        const resUser = await getUserInfo();
+        setLocalId(resUser.id);
+        setLocalPassword(this.password);
       }
       //登录失败
       else {
