@@ -174,7 +174,7 @@ export default {
 }
 .van-card__desc {
   text-indent: 1.4em;
-  width: 12em;
+  width: 90%;
   font-size: 16px;
   text-align: justify;
   /* height: 6.3em; */
