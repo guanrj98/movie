@@ -49,7 +49,6 @@ export default {
       RenewPassword: "",
     };
   },
-  created: {},
   methods: {
     onClickLeft() {
       this.$router.go(-1);
@@ -58,7 +57,7 @@ export default {
       console.log(this.oldPassword);
       console.log(this.newPassword);
       console.log(this.RenewPassword);
-      if (this.oldPassword != this.$route.query.pwd) {
+      if (this.oldPassword != localStorage.getItem("pwd")) {
         Notify({ type: "danger", message: "与老密码不一致" });
       } else {
         if (this.newPassword != this.RenewPassword) {
@@ -70,15 +69,12 @@ export default {
           });
           console.log(res);
           Notify({ type: "success", message: "密码修改成功" });
-          this.$route.query.pwd = this.newPassword;
+          localStorage.setItem("pwd", this.newPassword);
           setTimeout(() => {
             this.$router.push({
               name: "MyPage",
-              query: {
-                pwd: this.$route.query.pwd,
-              },
             });
-          }, 2000);
+          }, 1000);
         }
       }
     },

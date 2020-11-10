@@ -32,7 +32,7 @@
         />
         <div style="margin: 16px">
           <van-button round block type="info" native-type="submit">
-            提交
+            确认更改
           </van-button>
         </div>
       </van-form>
@@ -108,9 +108,10 @@ export default {
 }
 .avatar-uploader {
   margin-bottom: 20px;
+  margin-left: 60px;
 }
 .avatar-uploader .el-upload {
-  border: 1px solid #d9d9d9;
+  border: 3px solid #666666;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
@@ -122,9 +123,9 @@ export default {
 .avatar-uploader-icon {
   font-size: 45px;
   color: #cdd4db;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
+  width: 105px;
+  height: 105px;
+  line-height: 105px;
   text-align: center;
 }
 .avatar {

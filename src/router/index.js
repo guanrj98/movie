@@ -33,11 +33,6 @@ const routes = [
     component: () => import("@/views/MyPage.vue"),
   },
   {
-    path: "/love",
-    name: "MyCollection",
-    component: () => import("@/views/MyCollection.vue"),
-  },
-  {
     path: "/changeInfo",
     name: "ChangeInfo",
     component: () => import("@/views/ChangeInfo.vue"),
@@ -58,7 +53,17 @@ const routes = [
     component: () => import("@/views/Reg.vue"),
   },
   {
-    path: "/*",
+    path: "/details",
+    name: "Details",
+    component: () => import("@/views/Details.vue"),
+  },
+  {
+    path: "/mycollection",
+    name: "MyCollection",
+    component: () => import("@/views/MyCollection.vue"),
+  },
+  {
+    path: "*",
     name: "NoPage",
     component: () => import("@/views/NoPage.vue"),
   },

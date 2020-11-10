@@ -1,12 +1,13 @@
 <template>
   <div id="app">
+    <topHeader class="topheader"></topHeader>
     <router-view class="content"></router-view>
     <van-tabbar
       v-model="active"
       route
       :fixed="false"
       class="navbar"
-      active-color="tomato"
+      active-color="rgba(63, 0, 255, 0.6)"
     >
       <van-tabbar-item name="main" :to="{ name: 'Main' }" icon="wap-home-o"
         >首页</van-tabbar-item
@@ -28,9 +29,12 @@
 </template>
 
 <script>
+import topHeader from "./views/Header";
 export default {
   name: "App",
-  components: {},
+  components: {
+    topHeader,
+  },
   data() {
     return {
       active: "main",
@@ -52,6 +56,10 @@ body {
   margin: 0;
   padding: 0;
 }
+.topheader {
+  box-shadow: 0px 2px 2px #eeeeee;
+  margin-bottom: 5px;
+}
 #app {
   width: 100%;
   height: 100%;
@@ -65,6 +73,6 @@ body {
   overflow: auto;
 }
 .navbar {
-  border-top: 1px solid tomato;
+  border-top: 1px solid rgba(63, 0, 255, 0.5);
 }
 </style>

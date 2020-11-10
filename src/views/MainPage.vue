@@ -7,14 +7,15 @@
         /></van-swipe-item>
       </van-swipe>
     </div>
+    <h4>最新电影</h4>
     <div class="newMovie">
-      <h4>最新电影</h4>
       <van-grid :border="false" :column-num="6" class="moviesgrid">
         <van-grid-item
           v-for="item in movies"
           :key="item.id"
           :text="nameSplice(item.name)"
           :icon="item.coverImage"
+          :to="{ name: 'Details', query: { movieId: item.id } }"
         >
           <!-- <van-image :src="item.coverImage" /> -->
         </van-grid-item>
@@ -59,7 +60,7 @@ export default {
     });
     // console.log(list);
     this.movies = list.list;
-    console.log(this.movies);
+    // console.log(this.movies);
   },
   methods: {
     nameSplice(name) {
@@ -98,23 +99,19 @@ body {
 .newMovie {
   min-height: 50%;
   width: 100%;
-  margin-top: 10%;
-  padding-top: 8%;
   overflow: auto;
 }
 .newMovie::-webkit-scrollbar {
   width: 0 !important;
 }
-.newMovie h4 {
-  position: fixed;
-  top: 28%;
-  left: 5%;
-  z-index: 999;
+h4 {
+  margin-left: 2%;
+  margin-top: 8%;
   text-indent: 1em;
   height: 1.7em;
   width: 30%;
   line-height: 1.7em;
-  background-color: rgb(199, 151, 62);
+  background-color: rgba(63, 0, 255, 0.32);
   -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
