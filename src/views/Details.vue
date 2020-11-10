@@ -1,7 +1,5 @@
 <template>
   <div class="page">
-    <!-- :src="movieUrl" -->
-
     <iframe frameborder="0" id="videoplayer" name="iplayer"></iframe>
     <div class="content">
       <div class="content-name">
@@ -35,7 +33,7 @@ export default {
   data() {
     return {
       movieId: "",
-      movie: {},
+      movie: { category: {} },
       movieDesc: {
         hide: { text: "展开", msg: "" },
         show: { text: "收起", msg: "" },

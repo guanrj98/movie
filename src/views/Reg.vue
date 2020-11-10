@@ -147,6 +147,7 @@ export default {
       console.log("图片信息" + files);
       const data = new FormData();
       data.append("file", files.file);
+      //调取接口
       const httpImg = await getImgUrl(data);
       //截取图片地址
       console.log(httpImg.fileName.split(".tmp")[1]);
