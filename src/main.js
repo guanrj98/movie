@@ -10,10 +10,10 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
 import { serverUrl } from "@/utils/HeaderUrl";
-
+//图片过滤器
 Vue.filter("dalImg", (avatar) => {
   if (avatar) {
-    if (avatar.startsWith("blob:http")) {
+    if (avatar.startsWith("http")) {
       return avatar;
     } else {
       return serverUrl + avatar;
