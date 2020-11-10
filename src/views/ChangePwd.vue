@@ -85,8 +85,6 @@ export default {
   },
 };
 </script>
-p{
 
-}
 <style>
 </style>

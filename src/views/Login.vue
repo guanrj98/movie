@@ -69,10 +69,10 @@ export default {
           type: "warning",
           message: res.info,
         });
+        this.username = "";
+        this.password = "";
+        console.log(res);
       }
-      // this.username = "";
-      // this.password = "";
-      // console.log(res);
     },
   },
 };

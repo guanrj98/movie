@@ -7,7 +7,7 @@
         height="3rem"
         :src="users.avatar | dalImg"
       />
-      <p>欢迎您！{{ this.users.nickName }}</p>
+      <p>欢迎您！{{ this.users.userName }}</p>
     </div>
     <div class="main">
       <van-list border>
