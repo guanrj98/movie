@@ -7,6 +7,7 @@
         height="3rem"
         :src="users.avatar | dalImg"
       />
+      <!-- src="http://localhost:1337\uploads\8f0b6692-1b03-4fbc-81db-9ee6c4bd6389.jpg" -->
       <p>欢迎您！{{ this.users.nickName }}</p>
     </div>
     <div class="main">
@@ -60,8 +61,11 @@
 </template>
 
 <script>
-import { removeToken } from "@/utils/token";
+import { Toast } from "vant";
+
+import { clearToken } from "@/utils/token";
 import { getUserInfo } from "@/services/auth";
+import { getLocalPassword } from "@/utils/userMessage";
 export default {
   data() {
     return {
@@ -74,7 +78,7 @@ export default {
       this.$router.push({
         name: "Login",
       });
-      removeToken();
+      clearToken();
     },
     //我的收藏
     myFavorite() {
@@ -92,27 +96,30 @@ export default {
     changePwd() {
       this.$router.push({
         name: "ChangePwd",
-        query: {
-          pwd: this.$route.query.pwd,
-        },
       });
     },
     //修改用户信息
     changeInfo() {
       this.$router.push({
         name: "ChangeInfo",
-        query: {
-          id: this.users.id,
-        },
       });
     },
   },
   async created() {
-    console.log(this.$route.query.pwd);
+    console.log(getLocalPassword());
     const res = await getUserInfo();
     console.log(res);
     this.users = res;
     console.log(this.users.avatar);
+    if (getLocalPassword() === "undefined") {
+      clearToken();
+      this.$router.push({
+        name: "Login",
+      });
+      Toast({
+        message: "用户信息异常，请重新登录",
+      });
+    }
   },
 };
 </script>
@@ -126,13 +133,13 @@ export default {
   height: 3rem;
   margin-left: 20px;
   margin-top: 20px;
+  display: flex;
 }
 .van-img {
-  float: left;
+  margin-left: 5px;
 }
 .top p {
-  float: right;
-  margin-right: 160px;
+  margin-left: 10px;
   margin-top: 15px;
 }
 .main {
@@ -156,5 +163,9 @@ export default {
 }
 .van-icon-arrow {
   margin-right: 15px;
+}
+.van-image {
+  border: 2px solid red;
+  border-radius: 50%;
 }
 </style>

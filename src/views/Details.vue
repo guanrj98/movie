@@ -2,7 +2,7 @@
   <div class="page">
     <!-- :src="movieUrl" -->
 
-    <iframe frameborder="0" id="videoplayer" name="iplayer"></iframe>
+    <iframe frameborder="0" id="videoplayer"></iframe>
     <div class="content">
       <div class="content-name">
         <h1 class="name">{{ movie.name }}</h1>

@@ -1,7 +1,7 @@
 <template>
   <div class="reg-content">
     <!-- 头像上传 -->
-    <el-upload
+    <!-- <el-upload
       class="avatar-uploader"
       action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/"
       :show-file-list="false"
@@ -10,9 +10,19 @@
     >
       <img v-if="imageUrl" :src="imageUrl" class="avatar" />
       <i v-else class="el-icon-camera avatar-uploader-icon"></i>
-    </el-upload>
+    </el-upload> -->
 
     <van-form @submit="onSubmit">
+      <van-uploader
+        v-model="fileList"
+        :after-read="afterRead"
+        :preview-full-image="false"
+        multiple
+        :preview-size="120"
+        :round="true"
+        :max-count="1"
+        class="uploadimg"
+      />
       <van-field
         v-model="nickname"
         autocomplete="off"
@@ -63,10 +73,10 @@
 
       <van-dialog
         v-model="show"
-        title="注册成功"
         :show-confirm-button="btnShow"
         :show-cancel-button="btnShow"
       >
+        <p class="title">注册成功</p>
         <i class="iconfont iconduigou1"></i>
         <p class="txtTologin">
           <van-count-down :time="time">
@@ -86,6 +96,9 @@
 <script>
 import { Toast } from "vant";
 import { regApi } from "@/services/auth";
+
+import { getImgUrl } from "@/services/auth";
+
 import { clearToken } from "@/utils/token";
 
 export default {
@@ -105,27 +118,40 @@ export default {
     };
   },
   methods: {
-    //文件上传成功触发的事件
-    handleAvatarSuccess(res, file) {
-      //把本地图片地址改为以http:开头的
-      this.imageUrl = URL.createObjectURL(file.raw);
-      //图片路径
-      console.log("图片地址：" + this.imageUrl);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      console.log(file.size / 1024 + "KB");
-      const isLt150 = file.size / 1024 < 150;
+    // //文件上传成功触发的事件
+    // async handleAvatarSuccess(res, files) {
+    //   this.imageUrl = URL.createObjectURL(files.raw);
+    //   //图片路径
+    //   console.log("图片地址：" + this.imageUrl);
+    //   console.log(files.raw);
+    //   const data = new FormData();
+    //   data.append("file", files.raw);
+    //   const httpImg = await getImgUrl(data);
+    //   console.log(httpImg.fileName.split(".tmp")[1]);
+    // },
+    // beforeAvatarUpload(file) {
+    //   const isJPG = file.type === "image/jpeg";
+    //   console.log(file.size / 1024 + "KB");
+    //   const isLt150 = file.size / 1024 < 150;
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt150) {
-        this.$message.error("上传头像图片大小不能超过 150KB!");
-      }
-      return isJPG && isLt150;
+    //   if (!isJPG) {
+    //     this.$message.error("上传头像图片只能是 JPG 格式!");
+    //   }
+    //   if (!isLt150) {
+    //     this.$message.error("上传头像图片大小不能超过 150KB!");
+    //   }
+    //   return isJPG && isLt150;
+    // },
+    async afterRead(files) {
+      // 此时可以自行将文件上传至服务器
+      console.log("图片信息" + files);
+      const data = new FormData();
+      data.append("file", files.file);
+      const httpImg = await getImgUrl(data);
+      //截取图片地址
+      console.log(httpImg.fileName.split(".tmp")[1]);
+      this.imageUrl = httpImg.fileName.split(".tmp")[1];
     },
-
     async onSubmit(values) {
       values = { ...values, avatar: this.imageUrl };
       if (this.password != this.repwd) {
@@ -136,15 +162,13 @@ export default {
         return;
       }
       console.log(values);
-
+      console.log("submit");
       try {
         const regmess = await regApi(values);
         console.log(regmess);
         if (regmess.code === 1) {
           //注册成功将出现一个弹出框
           this.show = true;
-          // //注册成功则将token数据存到本地
-          // setToken(regmess.token);
           //注册完成跳到登录页面
           setTimeout(() => {
             this.show = false;
@@ -168,7 +192,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .reg-content {
   width: 100%;
   display: flex;
@@ -176,10 +200,18 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.avatar-uploader {
-  margin-bottom: 20px;
+.van-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
 }
-.avatar-uploader .el-upload {
+.van-uploader {
+  display: flex;
+  justify-content: center;
+  margin: 8px auto;
+}
+/* .avatar-uploader .el-upload {
   border: 1px solid #d9d9d9;
   border-radius: 50%;
   cursor: pointer;
@@ -201,24 +233,25 @@ export default {
   width: 150px;
   height: 150px;
   display: block;
-}
+} */
+
 .van-dialog {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
-.van-dialog__header {
+.title {
+  text-align: center;
   padding: 10px 0;
   font-size: 1.5em;
   font-family: Microsoft Yahei;
   color: rgb(86, 166, 219);
   letter-spacing: 0.1em;
 }
-.van-dialog__content {
-  text-align: center;
-}
 .iconduigou1 {
+  margin-left: 35px;
   font-size: 6em;
   color: rgb(41, 161, 57);
 }
