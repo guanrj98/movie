@@ -114,7 +114,7 @@ export default {
     this.users = res;
     console.log(this.users.avatar);
     if (localStorage.getItem("pwd") === "undefined") {
-      removeToken();
+      clearToken();
       this.$router.push({
         name: "Login",
       });
