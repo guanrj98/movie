@@ -49,7 +49,7 @@ instance.interceptors.response.use(
         message: "用户信息异常",
       });
       removeToken();
-      window.location.href = "/#/login";
+      // window.location.href = "/#/login";
     }
     return Promise.reject(err);
   }

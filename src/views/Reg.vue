@@ -86,7 +86,7 @@
 <script>
 import { Toast } from "vant";
 import { regApi } from "@/services/auth";
-import { setToken } from "@/utils/token";
+import { clearToken } from "@/utils/token";
 
 export default {
   name: "Reg",
@@ -143,8 +143,8 @@ export default {
         if (regmess.code === 1) {
           //注册成功将出现一个弹出框
           this.show = true;
-          //注册成功则将token数据存到本地
-          setToken(regmess.token);
+          // //注册成功则将token数据存到本地
+          // setToken(regmess.token);
           //注册完成跳到登录页面
           setTimeout(() => {
             this.show = false;
@@ -161,6 +161,7 @@ export default {
           message: "该用户名已被注册,请重新选择用户名",
           icon: "warning",
         });
+        clearToken();
       }
     },
   },
