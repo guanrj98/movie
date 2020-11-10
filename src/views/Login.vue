@@ -33,7 +33,9 @@
 
 <script>
 import { loginApi } from "@/services/auth";
+import { getUserInfo } from "@/services/auth";
 import { setToken } from "@/utils/token";
+import { setLocalId, setLocalPassword } from "@/utils/userMessage";
 import { Toast } from "vant";
 export default {
   data() {
@@ -46,6 +48,7 @@ export default {
     async onSubmit(values) {
       //调接口
       const res = await loginApi(values);
+      // console.log(values);
       console.log(values);
       console.log(res);
       //登录成功
@@ -57,10 +60,10 @@ export default {
         });
         this.$router.push({
           name: "MyPage",
-          query: {
-            pwd: this.password,
-          },
         });
+        const resUser = await getUserInfo();
+        setLocalId(resUser.id);
+        setLocalPassword(this.password);
       }
       //登录失败
       else {
@@ -71,7 +74,6 @@ export default {
         this.username = "";
         this.password = "";
       }
-      //点击登录验证之后清空输入框
     },
   },
 };
