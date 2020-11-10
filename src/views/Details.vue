@@ -30,8 +30,8 @@
 
 <script>
 import { getMoviesInfoApi } from "@/services/movies";
-import { addCollection,getCollectionApi } from "@/services/collection";
-import {getLocalId} from "@/utils/token"
+import { addCollection, getCollectionApi } from "@/services/collection";
+import { getLocalId } from "@/utils/token";
 import { Toast } from "vant";
 export default {
   data() {
@@ -48,7 +48,7 @@ export default {
         isColl: { text: "取消", style: "denger" },
         noColl: { text: "收藏", style: "primary" },
       },
-      col:{text:"",style:""},
+      col: { text: "", style: "" },
     };
   },
   async created() {
@@ -62,18 +62,18 @@ export default {
       this.movieDesc.show.msg = this.movie.desc;
       this.desc.show = this.movieDesc.hide;
       this.movieUrl = "https://jx.618g.com/?url=" + res.playUrl;
-      let id=getLocalId();
-      if(id){
-        let collections=await getCollectionApi({user:id});
-
-      }else{
+      let id = getLocalId();
+      if (id) {
+        let collections = getCollectionApi({ user: id });
+        console.log(collections);
+      } else {
         Toast({
           message: "账号异常",
           icon: "warning",
         });
         this.$router.push({
-          name:"Login",
-        })
+          name: "Login",
+        });
       }
     });
   },
