@@ -9,7 +9,7 @@
         <span class="cat">{{ movie.category.name }}</span>
       </div>
       <van-tag
-        type="success"
+        :type="collec"
         size="large"
         class="cbtn"
         text-color="#fff"
@@ -30,7 +30,9 @@
 
 <script>
 import { getMoviesInfoApi } from "@/services/movies";
-import { addCollection } from "@/services/collection";
+import { addCollection,getCollectionApi } from "@/services/collection";
+import {getLocalId} from "@/utils/token"
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -42,19 +44,37 @@ export default {
       },
       desc: { ishide: true, show: {} },
       movieUrl: "",
+      collec: {
+        isColl: { text: "取消", style: "denger" },
+        noColl: { text: "收藏", style: "primary" },
+      },
+      col:{text:"",style:""},
     };
   },
-  created() {
+  async created() {
     if (this.$route.query.movieId) {
       this.movieId = this.$route.query.movieId;
       console.log(this.movieId);
     }
-    getMoviesInfoApi(this.movieId).then((res) => {
+    await getMoviesInfoApi(this.movieId).then((res) => {
       this.movie = res;
       this.movieDesc.hide.msg = this.movie.desc.substr(0, 90) + "…";
       this.movieDesc.show.msg = this.movie.desc;
       this.desc.show = this.movieDesc.hide;
       this.movieUrl = "https://jx.618g.com/?url=" + res.playUrl;
+      let id=getLocalId();
+      if(id){
+        let collections=await getCollectionApi({user:id});
+
+      }else{
+        Toast({
+          message: "账号异常",
+          icon: "warning",
+        });
+        this.$router.push({
+          name:"Login",
+        })
+      }
     });
   },
   mounted() {
