@@ -68,10 +68,10 @@ export default {
           message: res.info,
           icon: "warning",
         });
+        this.username = "";
+        this.password = "";
       }
       //点击登录验证之后清空输入框
-      // this.username = "";
-      // this.password = "";
     },
   },
 };
