@@ -1,6 +1,11 @@
 <template>
   <div>
-    <van-tabs v-model="active" @click="onClick" color=" rgba(63, 0, 255, 0.5)">
+    <van-tabs
+      v-model="active"
+      @click="onClick"
+      color=" rgba(63, 0, 255, 0.5)"
+      class="topnav"
+    >
       <van-tab title="全部" name="all">
         <!-- <van-list
           v-model="loading"
@@ -29,23 +34,24 @@
         :name="cate.id"
       >
       </van-tab>
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-      >
-        <van-card
-          v-for="item in movies"
-          :key="item.id"
-          :desc="item.desc"
-          :title="item.name"
-          :thumb="item.coverImage"
-          @click="toDetails(item.id)"
-          class="movie"
-        />
-      </van-list>
     </van-tabs>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+      class="movielist"
+    >
+      <van-card
+        v-for="item in pageData.list"
+        :key="item.id"
+        :desc="item.desc"
+        :title="item.name"
+        :thumb="item.coverImage"
+        @click="toDetails(item.id)"
+        class="movie"
+      />
+    </van-list>
   </div>
 </template>
 
@@ -59,8 +65,7 @@ export default {
       categories: [],
       loading: false,
       finished: false,
-      movies: [],
-      pageData: [],
+      pageData: { category: "", list: [], page: "", pages: "" },
     };
   },
   async created() {
@@ -72,52 +77,52 @@ export default {
   },
   methods: {
     async onLoad(id) {
-      // console.log(this.active);
-      this.pageData.filter((item) => {
-        if (item.id == this.active && item.page > item.pages) {
-          this.finished = true;
-        }
-      });
+      if (id) {
+        this.active = this.$route.query.category_id;
+      }
+      if (this.pageData.category == this.active) {
+        console.log(this.pageData);
+      } else {
+        this.pageData.category = this.active;
+        this.pageData.list = [];
+        this.pageData.page = 1;
+        this.pageData.pages = 1;
+      }
+      if (this.pageData.page > this.pageData.pages) {
+        this.finished = true;
+      } else {
+        this.finished = false;
+      }
+
+      let cat = "";
+      if (this.pageData.category == "all") {
+        cat = "";
+      } else {
+        cat = this.pageData.category;
+      }
+
       if (this.finished) {
         return false;
       }
       this.loading = true;
-      /* if (this.$route.query.category_id) {
-        this.active = this.$route.query.category_id;
-      } */
-      let c = "";
-      if ("all" == this.active) {
-        c = "";
-      } else {
-        c = this.active;
-      }
+
       const res = await getMoviesApi({
-        category: c,
+        category: cat,
         per: 10,
+        page: this.pageData.page,
       });
-      let hasData = false;
-      this.pageData.forEach((item) => {
-        if (item.id == c) {
-          item.pages = res.pages;
-          item.page++;
-          hasData = true;
-        }
-      });
-      if (!hasData) {
-        this.pageData.push({ id: c, pages: res.pages, page: 2 });
-      }
-      // console.log(this.movies);
-      this.movies = [...this.movies, ...res.list];
+      this.pageData.page++;
+      this.pageData.pages = res.pages;
+
+      this.pageData.list = [...this.pageData.list, ...res.list];
       this.loading = false;
       if (!id) {
         id = this.active;
       }
       this.active = id;
-      // console.log(this.movies);
     },
     onClick() {
-      this.pageData = [];
-      this.movies = [];
+      // this.pageData = { category: "", list: [], page: "", pages: "" };
       this.onLoad();
       // console.log(name, title);
     },
@@ -132,6 +137,17 @@ export default {
 </script>
 
 <style scoped>
+.topnav {
+  margin-top: 14%;
+  z-index: 99;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+.movielist {
+  margin-top: 14%;
+}
 .movie {
   height: 20%;
   width: 95%;

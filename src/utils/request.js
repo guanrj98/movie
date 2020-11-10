@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { Notify } from "vant";
 import { serverUrl } from "./HeaderUrl";
-import { removeToken, getToken } from "./token";
+import { getToken } from "./token";
 
 const instance = Axios.create({
   timeout: 5000, //请求超时
@@ -16,11 +16,11 @@ const instance = Axios.create({
 //    1. 添加全局loading
 //    1. 在请求头添加token
 instance.interceptors.request.use(
-  function(config) {
+  function (config) {
     config.headers.token = getToken(); //请求头添加token
     return config;
   },
-  function(err) {
+  function (err) {
     return Promise.reject(err);
   }
 );
@@ -30,10 +30,10 @@ instance.interceptors.request.use(
 //  1. 清除loading
 //  2. 错误异常处理
 instance.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response.data;
   },
-  function(err) {
+  function (err) {
     console.log(err);
     //请求超时
     if (err.message && err.message.indexOf("timeout") > -1) {
@@ -48,7 +48,7 @@ instance.interceptors.response.use(
         type: "danger",
         message: "用户信息异常",
       });
-      removeToken();
+      // removeToken();
       // window.location.href = "/#/login";
     }
     return Promise.reject(err);

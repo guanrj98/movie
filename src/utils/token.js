@@ -7,17 +7,12 @@ export function getToken() {
 }
 export function removeToken() {
   localStorage.removeItem("token");
+  console.log("removeToken")
 }
 
 export function clearToken() {
   localStorage.clear();
 }
 
-export function getLocalId() {
-  return localStorage.getItem("id");
-}
 
-export function setLocalId(value) {
-  localStorage.setItem("id", value);
-}
 

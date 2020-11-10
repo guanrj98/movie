@@ -71,7 +71,6 @@ export default {
           message: res.info,
           icon: "warning",
         });
-        this.username = "";
         this.password = "";
       }
     },
