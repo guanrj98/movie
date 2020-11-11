@@ -1,7 +1,13 @@
 <template>
   <div class="page">
     <!-- :src="movieUrl" -->
-
+    <van-nav-bar
+      left-text=""
+      right-text="分享"
+      left-arrow
+      @click-left="onClickLeft"
+      class="topbar"
+    />
     <iframe frameborder="0" id="videoplayer"></iframe>
     <div class="content">
       <div class="content-name">
@@ -21,7 +27,9 @@
         <h3>剧情简介</h3>
         <p>
           {{ desc.show.msg
-          }}<span class="more" @click="descClick">{{ desc.show.text }}</span>
+          }}<span class="more" @click="descClick" v-show="showSapn">{{
+            desc.show.text
+          }}</span>
         </p>
       </div>
     </div>
@@ -41,6 +49,7 @@ import { checkLogin } from "@/utils/checkLogin";
 export default {
   data() {
     return {
+      showSapn: true,
       movieId: "",
       movie: { category: {} },
       movieDesc: {
@@ -64,8 +73,14 @@ export default {
     }
     await getMoviesInfoApi(this.movieId).then(async (res) => {
       this.movie = res;
-      this.movieDesc.hide.msg = this.movie.desc.substr(0, 90) + "…";
-      this.movieDesc.show.msg = this.movie.desc;
+      if (this.movie.desc.length <= 90) {
+        this.showSapn = false;
+        this.movieDesc.show.msg = this.movie.desc;
+        this.movieDesc.hide.msg = this.movie.desc;
+      } else {
+        this.movieDesc.hide.msg = this.movie.desc.substr(0, 90) + "…";
+        this.movieDesc.show.msg = this.movie.desc;
+      }
       this.desc.show = this.movieDesc.hide;
       this.movieUrl = "https://jx.618g.com/?url=" + res.playUrl;
       let id = Number(getLocalId());
@@ -112,6 +127,9 @@ export default {
         this.desc.show = this.movieDesc.show;
       }
     },
+    onClickLeft() {
+      this.$router.go(-1);
+    },
     async collection() {
       if (checkLogin()) {
         if (this.col.text == "收藏") {
@@ -136,6 +154,16 @@ export default {
 </script>
 
 <style scoped>
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+}
+.van-hairline--bottom::after {
+  border-bottom-width: 0px;
+}
 .page {
   height: 100%;
   width: 100%;

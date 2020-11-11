@@ -7,7 +7,6 @@
         height="3rem"
         :src="users.avatar | dalImg"
       />
-      <!-- src="http://localhost:1337\uploads\8f0b6692-1b03-4fbc-81db-9ee6c4bd6389.jpg" -->
       <p>欢迎您！{{ this.users.nickName }}</p>
     </div>
     <div class="main">
@@ -62,7 +61,6 @@
 
 <script>
 import { Toast } from "vant";
-
 import { clearToken } from "@/utils/token";
 import { getUserInfo } from "@/services/auth";
 import { getLocalPassword } from "@/utils/userMessage";
@@ -78,6 +76,7 @@ export default {
       this.$router.push({
         name: "Login",
       });
+      //清除token
       clearToken();
     },
     //我的收藏
