@@ -7,19 +7,26 @@
       @click-left="onClickLeft"
     />
     <div class="contentBottom">
-      <div class="collectMovies" v-for="item in movies" :key="item.id">
+      <div
+        class="collectMovies"
+        v-for="item in movies"
+        :key="item.id"
+        :data-id="item.movie.id"
+      >
         <van-checkbox v-model="item.checked"> </van-checkbox>
         <van-card
-          :desc="item.date + '      ' + item.movie.views + '人想看'"
+          :desc="item.date + '      ' + item.movie.views + '人已收藏'"
           :title="item.movie.name"
           :thumb="item.movie.coverImage"
+          :data-id="item.movie.id"
+          @click="toDetail(item.movie.id)"
         >
         </van-card>
       </div>
     </div>
     <!-- 全选单选 -->
     <van-submit-bar
-      label="已选择 "
+      label="已选择"
       currency=""
       :price="sum * 100"
       button-text="取消收藏"
@@ -31,7 +38,8 @@
 </template>
 
 <script>
-import { getCollectionApi } from "@/services/collection";
+import { getCollectionApi, delCollection } from "@/services/collection";
+
 export default {
   name: "MyCollection",
   data() {
@@ -43,30 +51,39 @@ export default {
     onClickLeft() {
       this.$router.go(-1);
     },
-    onSubmit() {
+    //进详情页
+    toDetail(id) {
+      this.$router.push({
+        name: "Details",
+        query: {
+          movieId: id,
+        },
+      });
+    },
+
+    async onSubmit() {
+      let arr = [];
+      // 遍历收藏页数据 如果为选中状态 存到arr数组中
+      this.movies.forEach((item) => {
+        if (item.checked) {
+          arr.push(item.movie.id);
+        }
+      });
+      console.log(arr);
+      //遍历所有选中状态的影片
+      for (var i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+        //调取取消收藏接口  将每个选中状态的影片从接口中删除
+        await delCollection(arr[i]);
+
+        this.movies.forEach((item, index) => {
+          if (item.movie.id == arr[i]) {
+            this.movies.splice(index, 1);
+          }
+        });
+      }
       console.log("点击了取消收藏");
     },
-  },
-  async created() {
-    const res = await getCollectionApi();
-    console.log(res);
-    //向接口数据中添加收藏时间
-    this.movies = res.map((item) => {
-      //将时间戳改为一般时间
-      let times = new Date(item.updatedAt);
-      //改时间格式2020-11-10 20:22:16
-      let day =
-        times.toLocaleDateString().replace(/\//g, "-") +
-        " " +
-        times.toTimeString().substr(0, 0);
-      let time = times.toTimeString().substr(0, 8);
-      return {
-        ...item,
-        date: "收藏日期 " + day + "收藏时间 " + time,
-        checked: false,
-      };
-    });
-    console.log(this.movies);
   },
   // 计算属性
   computed: {
@@ -77,15 +94,46 @@ export default {
         });
       },
       get() {
-        return (
-          this.movies.length ==
-          this.movies.filter((item) => item.checked).length
-        );
+        //如果收藏影片的长度大于0 将全选和单选保持一致
+        //此处的if else是为了解决收藏的影片全部删除后全选按钮仍处于选中状态
+        if (this.movies.length > 0) {
+          return (
+            this.movies.length ==
+            this.movies.filter((item) => item.checked).length
+          );
+        } else {
+          return false;
+        }
       },
     },
     sum() {
       return this.movies.filter((item) => item.checked == true).length;
     },
+  },
+  async created() {
+    // 调取接口获取收藏页数据 并构建dom树
+    const res = await getCollectionApi();
+    console.log(res);
+    //向接口数据中添加收藏时间 checked选中状态
+    this.movies = res.map((item) => {
+      //将时间戳改为一般时间
+      let times = new Date(item.updatedAt);
+      //改时间格式2020-11-10 20:22:16
+      let day = times.toLocaleDateString().replace(/\//g, "-");
+      let time = times.toTimeString().substr(0, 8);
+      return {
+        ...item,
+        date: "收藏日期 " + day + "收藏时间 " + time,
+        checked: false,
+      };
+    });
+    console.log(this.movies);
+  },
+  mounted() {
+    //将价格.00移除
+    document
+      .querySelector(".van-submit-bar__price--integer")
+      .nextSibling.remove();
   },
 };
 </script>
@@ -111,12 +159,12 @@ export default {
 }
 .collectMovies {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 .van-card {
-  width: 314px;
+  width: 336px;
   padding: 0;
-  margin: 7px 4px;
+  margin: 7px 3px;
   border-radius: 12px;
 }
 .van-card__header {
@@ -124,7 +172,7 @@ export default {
   border-radius: 12px;
 }
 .van-card__thumb {
-  padding: 13px;
+  padding: 8px;
   width: 100px;
   height: 130px;
 }
@@ -145,5 +193,11 @@ export default {
   line-height: 30px;
   font-size: 15px;
   font-family: Microsoft JhengHei;
+}
+.van-submit-bar__price {
+  padding: 0 3px;
+}
+.van-submit-bar__bar {
+  line-height: 50px;
 }
 </style>

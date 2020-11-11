@@ -152,6 +152,7 @@ export default {
       //截取图片地址
       console.log(httpImg.fileName.split(".tmp")[1]);
       this.imageUrl = httpImg.fileName.split(".tmp")[1];
+      console.log(this.fileList);
     },
     async onSubmit(values) {
       values = { ...values, avatar: this.imageUrl };
