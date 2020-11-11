@@ -19,9 +19,9 @@
             v-model="nickName"
             autocomplete="off"
             name="nickName"
-            label="用户名"
-            placeholder="用户名"
-            :rules="[{ required: true, message: '请填写您的用户名' }]"
+            label="昵称"
+            placeholder="昵称"
+            :rules="[{ required: true, message: '请填写您的昵称' }]"
           />
           <van-field
             v-model="gender"
@@ -74,6 +74,7 @@ export default {
       this.avatar = httpImg.fileName.split(".tmp")[1];
     },
     async onSubmit() {
+      //发起修改用户信息请求
       await ChangeUserInfoAPI({
         nickName: this.nickName,
         gender: this.gender,
@@ -89,6 +90,7 @@ export default {
       }, 2000);
     },
   },
+  //页面创建获取用户信息展示
   async created() {
     const res = await getUserInfo();
     this.nickName = res.nickName;

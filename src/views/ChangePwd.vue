@@ -55,9 +55,7 @@ export default {
       this.$router.go(-1);
     },
     async onSubmit() {
-      console.log(this.oldPassword);
-      console.log(this.newPassword);
-      console.log(this.RenewPassword);
+      //判断密码与老密码以及新密码是否相同
       if (this.oldPassword != getLocalPassword()) {
         Notify({ type: "danger", message: "与老密码不一致" });
       } else {
@@ -70,6 +68,7 @@ export default {
           });
           console.log(res);
           Notify({ type: "success", message: "密码修改成功" });
+          //修改存储到本地的密码
           setLocalPassword(this.newPassword);
           setTimeout(() => {
             this.$router.push({
