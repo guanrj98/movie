@@ -111,50 +111,13 @@ export default {
   align-items: center;
   justify-content: center;
 }
-/* .avatar-uploader {
-  margin-bottom: 20px;
-  margin-left: 60px;
-} */
-/* .avatar-uploader .el-upload {
-  border: 3px solid white;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-} */
-/* .avatar-uploader .el-upload:hover {
-  border-color: white;
-} */
-/* .avatar-uploader-icon {
-  font-size: 45px;
-  color: #cdd4db;
-  width: 105px;
-  height: 105px;
-  line-height: 105px;
-  text-align: center;
-} */
+
 .van-uploader {
   position: absolute;
   top: 2px;
   left: 90px;
 }
-/* .avatar {
-  width: 150px;
-  height: 150px;
-  display: block;
-} */
-/* .van-image {
-  border: 1px solid red;
-  margin-top: 10px; 
-  position: absolute;
-  top: 10px;
-  left: 90px;
-} */
 
-/* .van-image__img {
-  width: 80px;
-  height: 80px;
-} */
 .van-form {
   position: relative;
 }

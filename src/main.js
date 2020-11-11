@@ -19,7 +19,7 @@ Vue.filter("dalImg", (avatar) => {
       return serverUrl + avatar;
     }
   } else {
-    return "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2924932369,1093397730&fm=26&gp=0.jpg";
+    return "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=289479277,2972959845&fm=26&gp=0.jpg";
   }
 });
 
