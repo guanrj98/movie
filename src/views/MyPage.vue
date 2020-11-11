@@ -106,11 +106,11 @@ export default {
     },
   },
   async created() {
-    console.log(getLocalPassword());
+    // console.log(getLocalPassword());
     const res = await getUserInfo();
-    console.log(res);
+    // console.log(res);
     this.users = res;
-    console.log(this.users.avatar);
+    // console.log(this.users.avatar);
     if (getLocalPassword() === "undefined") {
       clearToken();
       this.$router.push({

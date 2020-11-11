@@ -70,7 +70,7 @@ export default {
       if (id) {
         // console.log(id);
         let res = await getCollectionApi(id);
-        console.log(res);
+        // console.log(res);
         let hasMovie = false;
         res.map((m) => {
           if (m.movie.id == this.movieId) {
@@ -80,11 +80,11 @@ export default {
         if (hasMovie) {
           //已有电影
           this.col = this.collec.isColl;
-          console.log("已添加");
+          // console.log("已添加");
         } else {
           //未添加
           this.col = this.collec.noColl;
-          console.log("未添加");
+          // console.log("未添加");
         }
         console.log(this.col);
       } else {
@@ -118,13 +118,13 @@ export default {
     async collection() {
       if (this.col.text == "收藏") {
         //收藏
-        const res = await addCollection({ movie: this.movieId });
+        await addCollection({ movie: this.movieId });
         this.col = this.collec.isColl;
-        console.log(res);
+        // console.log(res);
       } else if (this.col.text == "取消") {
-        const res = await deleteCollectionApi(this.movieId);
+        await deleteCollectionApi(this.movieId);
         this.col = this.collec.noColl;
-        console.log(res);
+        // console.log(res);
       }
     },
   },
