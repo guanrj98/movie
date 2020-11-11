@@ -16,6 +16,9 @@ export default {
       this.$router.go(-1);
     },
   },
+  created() {
+    this.$emit("send", false);
+  },
 };
 </script>
 

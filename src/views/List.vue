@@ -1,5 +1,19 @@
 <template>
-  <div>
+  <div class="w">
+    <van-nav-bar
+      title="影库"
+      left-text="返回"
+      left-arrow
+      @click-left="goBack"
+      class="topbar"
+    >
+      <template #title>
+        <van-search v-model="keyWord" placeholder="请输入搜索关键词" />
+      </template>
+      <template #right>
+        <van-icon name="search" size="18" />
+      </template>
+    </van-nav-bar>
     <van-tabs
       v-model="active"
       @click="onClick"
@@ -66,9 +80,11 @@ export default {
       loading: false,
       finished: false,
       pageData: { category: "", list: [], page: "", pages: "" },
+      keyWord: "",
     };
   },
   async created() {
+    this.$emit("send", false);
     this.active = this.$route.query.category_id || "all";
     // console.log(this.active);
     this.onLoad(this.$route.query.category_id);
@@ -76,6 +92,9 @@ export default {
     this.categories = listCat;
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     async onLoad(id) {
       if (id) {
         this.active = this.$route.query.category_id;
@@ -137,19 +156,21 @@ export default {
 </script>
 
 <style scoped>
-.topnav {
-  margin-top: 14%;
-  z-index: 99;
-  position: fixed;
-  top: 0px;
-  left: 0px;
+.w {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
+}
+.topbar {
+  border-bottom: 1px solid rgb(86, 86, 228);
 }
 .movielist {
-  margin-top: 14%;
+  flex: 1;
+  overflow: auto;
 }
 .movie {
-  height: 20%;
+  height: 15em;
   width: 95%;
 
   display: flex;
@@ -160,7 +181,9 @@ export default {
   width: 120px;
   height: 160px;
 }
-
+.van-search {
+  padding: 0px;
+}
 .van-card__title {
   margin-top: 1em;
   margin-left: 0.7em;

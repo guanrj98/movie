@@ -117,6 +117,9 @@ export default {
       imageUrl: "",
     };
   },
+  created() {
+    this.$emit("send", false);
+  },
   methods: {
     // //文件上传成功触发的事件
     // async handleAvatarSuccess(res, files) {

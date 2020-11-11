@@ -27,6 +27,9 @@
 <script>
 export default {
   name: "MyCollection",
+  created() {
+    this.$emit("send", false);
+  },
   methods: {
     onClickLeft() {
       this.$router.go(-1);

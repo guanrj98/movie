@@ -115,6 +115,7 @@ export default {
     },
   },
   async created() {
+    this.$emit("send", false);
     const res = await getUserInfo();
     console.log(res);
     this.nickName = res.nickName;

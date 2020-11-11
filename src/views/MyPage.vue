@@ -106,6 +106,7 @@ export default {
     },
   },
   async created() {
+    this.$emit("send", false);
     // console.log(getLocalPassword());
     const res = await getUserInfo();
     // console.log(res);

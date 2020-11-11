@@ -10,6 +10,7 @@ export default {};
 
 <style scoped>
 .wrap {
+  padding: 0.2em 0;
   width: 100%;
 }
 .wrap img {

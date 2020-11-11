@@ -66,9 +66,6 @@ const routes = [
   {
     path: "/details",
     name: "Details",
-    meta: {
-      needLogin: true,
-    },
     component: () => import("@/views/Details.vue"),
   },
   {
@@ -97,7 +94,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       Toast({
-        message: "验证信息已过期，请重新登陆！",
+        message: "未登录？请先登录！",
         icon: "warning"
       })
       window.localStorage.setItem("targetPage", to.name);

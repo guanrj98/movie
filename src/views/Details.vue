@@ -37,6 +37,7 @@ import {
 } from "@/services/collection";
 import { getLocalId } from "@/utils/userMessage";
 import { Toast } from "vant";
+import { checkLogin } from "@/utils/checkLogin";
 export default {
   data() {
     return {
@@ -56,6 +57,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("send", false);
     if (this.$route.query.movieId) {
       this.movieId = this.$route.query.movieId;
       // console.log(this.movieId);
@@ -88,13 +90,8 @@ export default {
         }
         console.log(this.col);
       } else {
-        Toast({
-          message: "账号异常",
-          icon: "warning",
-        });
-        this.$router.push({
-          name: "Login",
-        });
+        //未登录，默认显示未收藏
+        this.col = this.collec.noColl;
       }
     });
   },
@@ -116,15 +113,22 @@ export default {
       }
     },
     async collection() {
-      if (this.col.text == "收藏") {
-        //收藏
-        await addCollection({ movie: this.movieId });
-        this.col = this.collec.isColl;
-        // console.log(res);
-      } else if (this.col.text == "取消") {
-        await deleteCollectionApi(this.movieId);
-        this.col = this.collec.noColl;
-        // console.log(res);
+      if (checkLogin()) {
+        if (this.col.text == "收藏") {
+          //收藏
+          await addCollection({ movie: this.movieId });
+          this.col = this.collec.isColl;
+          // console.log(res);
+        } else if (this.col.text == "取消") {
+          await deleteCollectionApi(this.movieId);
+          this.col = this.collec.noColl;
+          // console.log(res);
+        }
+      } else {
+        Toast({
+          icon: "warning",
+          message: "请先登录！",
+        });
       }
     },
   },
@@ -195,6 +199,7 @@ export default {
   border-radius: 0.5em;
 }
 .desc p {
+  min-height: 5em;
   text-indent: 2em;
   overflow: hidden;
   color: rgb(49, 44, 44);
