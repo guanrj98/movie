@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <topHeader class="topheader"></topHeader>
+    <topHeader class="topheader" :v-if="needHeader"></topHeader>
     <router-view class="content"></router-view>
     <van-tabbar
       v-model="active"
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       active: "main",
+      needHeader: true,
     };
   },
 };
