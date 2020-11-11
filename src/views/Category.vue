@@ -52,11 +52,11 @@ export default {
 .content {
   height: 100%;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 .item {
   width: 30%;
-  height: 30%;
+  height: 33%;
   margin: 2em 1.5%;
   position: relative;
   text-align: center;

@@ -1,19 +1,21 @@
 <template>
   <div class="page">
-    <iframe frameborder="0" id="videoplayer" name="iplayer"></iframe>
+    <!-- :src="movieUrl" -->
+
+    <iframe frameborder="0" id="videoplayer"></iframe>
     <div class="content">
       <div class="content-name">
         <h1 class="name">{{ movie.name }}</h1>
         <span class="cat">{{ movie.category.name }}</span>
       </div>
       <van-tag
-        type="success"
+        :type="col.style"
         size="large"
         class="cbtn"
         text-color="#fff"
         @click="collection"
       >
-        <van-icon name="star" />收藏
+        <van-icon name="star" />{{ col.text }}
       </van-tag>
       <div class="desc">
         <h3>剧情简介</h3>
@@ -28,7 +30,13 @@
 
 <script>
 import { getMoviesInfoApi } from "@/services/movies";
-import { addCollection } from "@/services/collection";
+import {
+  addCollection,
+  getCollectionApi,
+  deleteCollectionApi,
+} from "@/services/collection";
+import { getLocalId } from "@/utils/userMessage";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -40,19 +48,54 @@ export default {
       },
       desc: { ishide: true, show: {} },
       movieUrl: "",
+      collec: {
+        isColl: { text: "取消", style: "danger " },
+        noColl: { text: "收藏", style: "primary" },
+      },
+      col: { text: "", style: "" },
     };
   },
-  created() {
+  async created() {
     if (this.$route.query.movieId) {
       this.movieId = this.$route.query.movieId;
-      console.log(this.movieId);
+      // console.log(this.movieId);
     }
-    getMoviesInfoApi(this.movieId).then((res) => {
+    await getMoviesInfoApi(this.movieId).then(async (res) => {
       this.movie = res;
       this.movieDesc.hide.msg = this.movie.desc.substr(0, 90) + "…";
       this.movieDesc.show.msg = this.movie.desc;
       this.desc.show = this.movieDesc.hide;
       this.movieUrl = "https://jx.618g.com/?url=" + res.playUrl;
+      let id = Number(getLocalId());
+      if (id) {
+        // console.log(id);
+        let res = await getCollectionApi(id);
+        // console.log(res);
+        let hasMovie = false;
+        res.map((m) => {
+          if (m.movie.id == this.movieId) {
+            hasMovie = true;
+          }
+        });
+        if (hasMovie) {
+          //已有电影
+          this.col = this.collec.isColl;
+          // console.log("已添加");
+        } else {
+          //未添加
+          this.col = this.collec.noColl;
+          // console.log("未添加");
+        }
+        console.log(this.col);
+      } else {
+        Toast({
+          message: "账号异常",
+          icon: "warning",
+        });
+        this.$router.push({
+          name: "Login",
+        });
+      }
     });
   },
   mounted() {
@@ -73,8 +116,16 @@ export default {
       }
     },
     async collection() {
-      const res = await addCollection({ movie: this.movieId });
-      console.log(res);
+      if (this.col.text == "收藏") {
+        //收藏
+        await addCollection({ movie: this.movieId });
+        this.col = this.collec.isColl;
+        // console.log(res);
+      } else if (this.col.text == "取消") {
+        await deleteCollectionApi(this.movieId);
+        this.col = this.collec.noColl;
+        // console.log(res);
+      }
     },
   },
 };

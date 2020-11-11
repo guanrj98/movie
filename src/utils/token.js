@@ -7,12 +7,9 @@ export function getToken() {
 }
 export function removeToken() {
   localStorage.removeItem("token");
+  console.log("removeToken");
 }
 
 export function clearToken() {
   localStorage.clear();
 }
-
-// export function setMovieId(val) {
-//   localStorage.setItem("movieId", val);
-// }

@@ -12,3 +12,8 @@ export function delCollection(id) {
 export function getCollectionApi() {
   return get("/api/v1/user/collections");
 }
+
+//删除收藏，传入电影id
+export function deleteCollectionApi(id) {
+  return del("/api/v1/user/collections/" + id);
+}

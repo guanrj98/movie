@@ -58,12 +58,28 @@ export default {
           message: res.info,
           icon: "checked",
         });
-        this.$router.push({
-          name: "MyPage",
-        });
+
         const resUser = await getUserInfo();
         setLocalId(resUser.id);
         setLocalPassword(this.password);
+
+        // login成功跳转
+        let target = localStorage.getItem("targetPage");
+        let targetQuery = localStorage.getItem("targetPageQuery");
+        targetQuery = JSON.parse(targetQuery);
+        if (target) {
+          // console.log(target, targetQuery);
+          this.$router.push({
+            name: target,
+            query: targetQuery,
+          });
+        } else {
+          this.$router.push({
+            name: "Main",
+          });
+        }
+        localStorage.removeItem("targetPage");
+        localStorage.removeItem("targetPageQuery");
       }
       //登录失败
       else {
@@ -71,7 +87,6 @@ export default {
           message: res.info,
           icon: "warning",
         });
-        this.username = "";
         this.password = "";
       }
     },
