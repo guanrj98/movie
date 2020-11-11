@@ -44,9 +44,8 @@
 </template>
 
 <script>
-import { ChangeUserInfoAPI } from "@/services/auth";
-import { getUserInfo } from "@/services/auth";
-import { getImgUrl } from "@/services/auth";
+import { ChangeUserInfoAPI, getUserInfo, getImgUrl } from "@/services/auth";
+import { Toast } from "vant";
 
 export default {
   data() {
@@ -55,35 +54,12 @@ export default {
       gender: "",
       avatar: "",
       fileList: [],
-      show: true,
       btnShow: false,
-      UpShow: false,
     };
   },
   methods: {
     onClickLeft() {
       this.$router.go(-1);
-    },
-    /*  handleAvatarSuccess(res, file) {
-      this.avatar = URL.createObjectURL(file.raw);
-      console.log(this.avatar);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    }, */
-    change() {
-      // this.show = false;
-      // this.UpShow = true;
-      this.Cimg();
     },
 
     async afterRead(files) {
@@ -98,15 +74,14 @@ export default {
       this.avatar = httpImg.fileName.split(".tmp")[1];
     },
     async onSubmit() {
-      console.log(this.nickName);
-      console.log(this.gender);
-      console.log(this.avatar);
       await ChangeUserInfoAPI({
         nickName: this.nickName,
         gender: this.gender,
         avatar: this.avatar,
       });
-      this.show = true;
+      Toast({
+        message: "修改成功",
+      });
       setTimeout(() => {
         this.$router.push({
           name: "MyPage",
@@ -116,11 +91,9 @@ export default {
   },
   async created() {
     const res = await getUserInfo();
-    console.log(res);
     this.nickName = res.nickName;
     this.gender = res.gender;
     this.avatar = res.avatar;
-    console.log(this.avatar);
   },
 };
 </script>
@@ -138,50 +111,50 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.avatar-uploader {
+/* .avatar-uploader {
   margin-bottom: 20px;
   margin-left: 60px;
-}
-.avatar-uploader .el-upload {
-  border: 3px solid #666666;
+} */
+/* .avatar-uploader .el-upload {
+  border: 3px solid white;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
+} */
+/* .avatar-uploader .el-upload:hover {
   border-color: white;
-}
-.avatar-uploader-icon {
+} */
+/* .avatar-uploader-icon {
   font-size: 45px;
   color: #cdd4db;
   width: 105px;
   height: 105px;
   line-height: 105px;
   text-align: center;
-}
+} */
 .van-uploader {
   position: absolute;
   top: 2px;
   left: 90px;
 }
-.avatar {
+/* .avatar {
   width: 150px;
   height: 150px;
   display: block;
-}
-.van-image {
+} */
+/* .van-image {
   border: 1px solid red;
-  /* margin-top: 10px; */
+  margin-top: 10px; 
   position: absolute;
   top: 10px;
   left: 90px;
-}
+} */
 
-.van-image__img {
+/* .van-image__img {
   width: 80px;
   height: 80px;
-}
+} */
 .van-form {
   position: relative;
 }
