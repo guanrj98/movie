@@ -55,6 +55,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("send", true);
     const list = await getMoviesApi({
       per: 12,
     });

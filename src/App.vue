@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <topHeader class="topheader" :v-if="needHeader"></topHeader>
-    <router-view class="content"></router-view>
+    <topHeader class="topheader" v-show="needHeader"></topHeader>
+    <router-view class="content" @send="getmsg"></router-view>
     <van-tabbar
       v-model="active"
       route
@@ -40,6 +40,11 @@ export default {
       active: "main",
       needHeader: true,
     };
+  },
+  methods: {
+    getmsg(res) {
+      this.needHeader = res;
+    },
   },
 };
 </script>

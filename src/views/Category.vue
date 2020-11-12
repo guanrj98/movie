@@ -22,6 +22,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("send", true);
     const list = await getCategoriesApi();
     this.categories = list;
   },

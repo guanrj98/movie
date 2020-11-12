@@ -44,6 +44,9 @@ export default {
       password: "",
     };
   },
+  created() {
+    this.$emit("send", false);
+  },
   methods: {
     async onSubmit(values) {
       //调接口

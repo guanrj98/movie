@@ -112,6 +112,7 @@ export default {
     },
   },
   async created() {
+    this.$emit("send", false);
     // 调取接口获取收藏页数据 并构建dom树
     const res = await getCollectionApi();
     console.log(res);

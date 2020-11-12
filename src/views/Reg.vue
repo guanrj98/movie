@@ -117,31 +117,10 @@ export default {
       imageUrl: "",
     };
   },
+  created() {
+    this.$emit("send", false);
+  },
   methods: {
-    // //文件上传成功触发的事件
-    // async handleAvatarSuccess(res, files) {
-    //   this.imageUrl = URL.createObjectURL(files.raw);
-    //   //图片路径
-    //   console.log("图片地址：" + this.imageUrl);
-    //   console.log(files.raw);
-    //   const data = new FormData();
-    //   data.append("file", files.raw);
-    //   const httpImg = await getImgUrl(data);
-    //   console.log(httpImg.fileName.split(".tmp")[1]);
-    // },
-    // beforeAvatarUpload(file) {
-    //   const isJPG = file.type === "image/jpeg";
-    //   console.log(file.size / 1024 + "KB");
-    //   const isLt150 = file.size / 1024 < 150;
-
-    //   if (!isJPG) {
-    //     this.$message.error("上传头像图片只能是 JPG 格式!");
-    //   }
-    //   if (!isLt150) {
-    //     this.$message.error("上传头像图片大小不能超过 150KB!");
-    //   }
-    //   return isJPG && isLt150;
-    // },
     async afterRead(files) {
       // 此时可以自行将文件上传至服务器
       console.log("图片信息" + files);
@@ -176,9 +155,6 @@ export default {
             this.show = false;
             this.$router.push({
               name: "Login",
-              // query: {
-              //   img: this.imageUrl,
-              // },
             });
           }, 3000);
         }
