@@ -21,7 +21,7 @@
       <van-tabbar-item name="list" :to="{ name: 'List' }" icon="shopping-cart-o"
         >影库</van-tabbar-item
       >
-      <van-tabbar-item name="mypage" :to="{ name: 'MyPage' }" icon="user-o"
+      <van-tabbar-item name="mypage" :to="{ name: 'MyPage' }" icon="contact"
         >我的</van-tabbar-item
       >
     </van-tabbar>
