@@ -119,8 +119,8 @@ export default {
     //向接口数据中添加收藏时间 checked选中状态
     this.movies = res.map((item) => {
       //将时间戳改为一般时间
-      // let times = new Date(item.createdAt);
-      let times = new Date(1605100776318);
+      let times = new Date(item.createdAt);
+      // let times = new Date(1605100776318);
       //改时间格式2020-11-10 20:22:16
       let day = times.toLocaleDateString().replace(/\//g, "-");
       let time = times.toTimeString().substr(0, 8);
@@ -157,8 +157,6 @@ export default {
 }
 .van-nav-bar {
   line-height: 46px;
-}
-.van-nav-bar {
   box-shadow: 0 1px 1px 0px #eeeeee;
   font-size: 20px;
 }

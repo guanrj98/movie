@@ -1,7 +1,9 @@
 <template>
-  <div class="reg-content">
-    <!-- 头像上传 -->
-    <!-- <el-upload
+  <div>
+    <van-nav-bar title="用户注册" left-arrow @click-left="onClickLeft" />
+    <div class="reg-content">
+      <!-- 头像上传 -->
+      <!-- <el-upload
       class="avatar-uploader"
       action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/"
       :show-file-list="false"
@@ -12,84 +14,85 @@
       <i v-else class="el-icon-camera avatar-uploader-icon"></i>
     </el-upload> -->
 
-    <van-form @submit="onSubmit">
-      <van-uploader
-        v-model="fileList"
-        :after-read="afterRead"
-        :preview-full-image="false"
-        multiple
-        :preview-size="120"
-        :round="true"
-        :max-count="1"
-        class="uploadimg"
-      />
-      <van-field
-        v-model="nickname"
-        autocomplete="off"
-        name="nickName"
-        label="昵称"
-        placeholder="请填写昵称"
-        :rules="[{ required: true }]"
-      />
-      <van-field
-        v-model="username"
-        autocomplete="off"
-        name="userName"
-        label="用户名"
-        placeholder="请填写用户名"
-        :rules="[{ required: true }]"
-      />
-      <van-field
-        v-model="gender"
-        name="gender"
-        label="性别"
-        autocomplete="off"
-        placeholder="请填写性别"
-        :rules="[{ required: true }]"
-      />
-      <van-field
-        v-model="password"
-        autocomplete="off"
-        type="password"
-        name="password"
-        label="密码"
-        placeholder="请填写密码"
-        :rules="[{ required: true }]"
-      />
-      <van-field
-        v-model="repwd"
-        autocomplete="off"
-        type="password"
-        name="repwd"
-        label="确认密码"
-        placeholder="再一次输入密码"
-        :rules="[{ required: true }]"
-      />
-      <div style="margin: 16px">
-        <van-button round block type="info" native-type="submit">
-          注册
-        </van-button>
-      </div>
+      <van-form @submit="onSubmit">
+        <van-uploader
+          v-model="fileList"
+          :after-read="afterRead"
+          :preview-full-image="false"
+          multiple
+          :preview-size="120"
+          :round="true"
+          :max-count="1"
+          class="uploadimg"
+        />
+        <van-field
+          v-model="nickname"
+          autocomplete="off"
+          name="nickName"
+          label="昵称"
+          placeholder="请填写昵称"
+          :rules="[{ required: true }]"
+        />
+        <van-field
+          v-model="username"
+          autocomplete="off"
+          name="userName"
+          label="用户名"
+          placeholder="请填写用户名"
+          :rules="[{ required: true }]"
+        />
+        <van-field
+          v-model="gender"
+          name="gender"
+          label="性别"
+          autocomplete="off"
+          placeholder="请填写性别"
+          :rules="[{ required: true }]"
+        />
+        <van-field
+          v-model="password"
+          autocomplete="off"
+          type="password"
+          name="password"
+          label="密码"
+          placeholder="请填写密码"
+          :rules="[{ required: true }]"
+        />
+        <van-field
+          v-model="repwd"
+          autocomplete="off"
+          type="password"
+          name="repwd"
+          label="确认密码"
+          placeholder="再一次输入密码"
+          :rules="[{ required: true }]"
+        />
+        <div style="margin: 16px">
+          <van-button round block type="info" native-type="submit">
+            注册
+          </van-button>
+        </div>
 
-      <van-dialog
-        v-model="show"
-        :show-confirm-button="btnShow"
-        :show-cancel-button="btnShow"
-      >
-        <p class="title">注册成功</p>
-        <i class="iconfont iconduigou1"></i>
-        <p class="txtTologin">
-          <van-count-down :time="time">
-            <template #default="timeData">
-              <span class="block">{{ timeData.seconds + 1 }}</span>
-            </template>
-          </van-count-down>
-          <span>秒后跳到登录页面...</span>
-        </p>
-      </van-dialog>
-    </van-form>
-    <!-- router相当于一个a标签 -->
-    <router-link :to="{ name: 'Login' }">已有账号，我要登录</router-link>
+        <van-dialog
+          v-model="show"
+          :show-confirm-button="btnShow"
+          :show-cancel-button="btnShow"
+        >
+          <p class="title">注册成功</p>
+          <i class="iconfont iconduigou1"></i>
+          <p class="txtTologin">
+            <van-count-down :time="time">
+              <template #default="timeData">
+                <span class="block">{{ timeData.seconds + 1 }}</span>
+              </template>
+            </van-count-down>
+            <span>秒后跳到登录页面...</span>
+          </p>
+        </van-dialog>
+      </van-form>
+      <!-- router相当于一个a标签 -->
+      <router-link :to="{ name: 'Login' }">已有账号，我要登录</router-link>
+    </div>
   </div>
 </template>
 
@@ -121,6 +124,11 @@ export default {
     this.$emit("send", false);
   },
   methods: {
+    onClickLeft() {
+      this.$router.push({
+        name: "Main",
+      });
+    },
     async afterRead(files) {
       // 此时可以自行将文件上传至服务器
       console.log("图片信息" + files);
@@ -171,7 +179,13 @@ export default {
 </script>
 
 <style scoped>
+.van-nav-bar {
+  line-height: 46px;
+  box-shadow: 0 1px 2px 1px #eeeeee;
+  font-size: 20px;
+}
 .reg-content {
+  margin-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
