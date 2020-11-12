@@ -77,6 +77,14 @@ const routes = [
     component: () => import("@/views/MyCollection.vue"),
   },
   {
+    path: "/search",
+    name: "Search",
+    meta: {
+      needLogin: true,
+    },
+    component: () => import("@/views/Search.vue"),
+  },
+  {
     path: "*",
     name: "NoPage",
     component: () => import("@/views/NoPage.vue"),

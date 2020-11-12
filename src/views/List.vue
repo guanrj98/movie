@@ -1,14 +1,34 @@
 <template>
   <div class="w">
     <van-nav-bar
-      title="影库"
-      left-text="返回"
+      left-text=""
       left-arrow
       @click-left="goBack"
+      @click-right="showSearch"
       class="topbar"
     >
       <template #title>
-        <van-search v-model="keyWord" placeholder="请输入搜索关键词" />
+        <van-search
+          v-model="keyWord"
+          placeholder="请输入搜索关键词"
+          :class="show"
+          @input="iptSearch"
+          @search="getSearch"
+          @clear="clearSearch"
+        />
+        <van-tag
+          type="primary"
+          color="#fff"
+          text-color="rgba(63, 0, 255, 0.5)"
+          v-show="!showsearch"
+          size="large"
+          >影库</van-tag
+        >
+        <ul class="searchul" v-show="showSearchList">
+          <li v-for="mov in resoult" :key="mov.id" @click="toDetails(mov.id)">
+            {{ mov.name }}
+          </li>
+        </ul>
       </template>
       <template #right>
         <van-icon name="search" size="18" />
@@ -70,6 +90,7 @@
 </template>
 
 <script>
+import { getMoviesByKeyword } from "@/utils/GetMoviesBy";
 import { getCategoriesApi } from "@/services/categories";
 import { getMoviesApi } from "@/services/movies";
 export default {
@@ -81,6 +102,11 @@ export default {
       finished: false,
       pageData: { category: "", list: [], page: "", pages: "" },
       keyWord: "",
+      showsearch: false,
+      show: "",
+      resoult: [],
+      showSearchList: false,
+      noborder: "",
     };
   },
   async created() {
@@ -92,6 +118,49 @@ export default {
     this.categories = listCat;
   },
   methods: {
+    clearSearch() {
+      this.showSearchList = false;
+    },
+    async iptSearch() {
+      if (this.keyWord.trim() != "") {
+        this.resoult = await getMoviesByKeyword(this.keyWord);
+        if (this.resoult.length > 0) {
+          this.showSearchList = true;
+        } else {
+          this.showSearchList = false;
+        }
+        // console.log(this.resoult);
+      } else {
+        this.showSearchList = false;
+      }
+    },
+    getSearch() {
+      // console.log(this.keyWord);
+      this.$router.push({
+        name: "Search",
+        query: { kw: this.keyWord },
+      });
+    },
+    showSearch() {
+      if (this.showsearch) {
+        this.show = "";
+        this.showSearchList = false;
+        document.querySelector(".van-nav-bar__right").style.pointerEvents =
+          "none";
+        setTimeout(() => {
+          this.showsearch = false;
+          document.querySelector(".van-nav-bar__right").style.pointerEvents =
+            "unset";
+          document.querySelector(".van-search").style.border = "none";
+        }, 500);
+      } else {
+        document.querySelector(".van-search").style.border =
+          "1px solid rgb(71, 71, 211)";
+        this.showsearch = true;
+        this.show = "showSear";
+        // this.showSearchList = true;
+      }
+    },
     goBack() {
       this.$router.push({
         name: "Main",
@@ -158,6 +227,49 @@ export default {
 </script>
 
 <style scoped>
+.noborder {
+  border: none;
+}
+.searchul {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 60%;
+  background-color: #f7f8fa;
+  max-height: 500%;
+  overflow: auto;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 1px solid rgb(71, 71, 211);
+  border-top: none;
+  padding-bottom: 1px;
+}
+.searchul > li {
+  box-sizing: content-box;
+  line-height: 2em;
+  width: 90%;
+  margin: 0px auto;
+  border-bottom: 1px solid #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.van-search {
+  overflow: hidden;
+  height: 0px;
+  width: 0px;
+  transition: all 0.5s linear;
+}
+/* .noclick {
+  pointer-events: unset;
+  pointer-events: none;
+} */
+.showSear {
+  width: 100%;
+  height: 90%;
+  /* border: 1px solid rgb(71, 71, 211); */
+}
 .w {
   display: flex;
   flex-direction: column;
@@ -165,7 +277,7 @@ export default {
   height: 100%;
 }
 .topbar {
-  border-bottom: 1px solid rgb(86, 86, 228);
+  box-shadow: 0px 2px 1px 0px #eeeeee;
 }
 .movielist {
   flex: 1;

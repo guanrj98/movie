@@ -193,7 +193,7 @@ export default {
 .name {
   font-size: 1.5em;
   line-height: 2.5em;
-  margin-left: 1em;
+  margin-left: 0.8em;
   /* min-width: fit-content; */
   /* width: 8em; */
   max-width: 7.5em;
