@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { Notify } from "vant";
+import { Toast } from "vant";
 import { serverUrl } from "./HeaderUrl";
 import { getToken } from "./token";
 
@@ -37,16 +37,16 @@ instance.interceptors.response.use(
     console.log(err);
     //请求超时
     if (err.message && err.message.indexOf("timeout") > -1) {
-      Notify({
-        type: "danger",
+      Toast({
+        icon: "warning",
         message: "网络不稳定，请刷新重试",
       });
     }
     //token异常
     if (err.response && err.response.status == 401) {
-      Notify({
-        type: "danger",
-        message: "用户信息异常",
+      Toast({
+        icon: "info-o",
+        message: "用户验证已过期，请重新登录！",
       });
       // removeToken();
       // window.location.href = "/#/login";

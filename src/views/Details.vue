@@ -62,7 +62,7 @@ export default {
         isColl: { text: "取消", style: "danger " },
         noColl: { text: "收藏", style: "primary" },
       },
-      col: { text: "", style: "" },
+      col: { text: "收藏", style: "primary" },
     };
   },
   async created() {

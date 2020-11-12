@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     getmsg(res) {
-      console.log(res);
       this.needHeader = res;
     },
   },
