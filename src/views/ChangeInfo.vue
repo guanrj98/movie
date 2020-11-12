@@ -108,6 +108,7 @@ export default {
 </style>
 <style scoped>
 .reg-content {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;

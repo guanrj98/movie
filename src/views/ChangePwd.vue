@@ -1,6 +1,9 @@
 <template>
   <div>
     <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft" />
+    <div>
+      <img src="../assets/duola.jpg" alt="" class="img" />
+    </div>
     <van-form @submit="onSubmit">
       <van-field
         v-model="oldPassword"
@@ -85,4 +88,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.img {
+  width: 14rem;
+  height: 8rem;
+  margin-left: 5rem;
+  margin-top: 10px;
+}
+</style>
