@@ -242,6 +242,7 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
+  z-index: 9999;
   width: 60%;
   background-color: #f7f8fa;
   max-height: 500%;
@@ -341,7 +342,6 @@ export default {
   position: absolute;
   top: 125px;
   left: 98px;
-  z-index: 999;
 }
 .iconfont::after {
   content: "";
