@@ -83,12 +83,6 @@ export default {
     myFavorite() {
       this.$router.push({
         name: "MyCollection",
-        params: {
-          id: this.users.id,
-        },
-        query: {
-          id: this.users.id,
-        },
       });
     },
     //改变密码
@@ -130,13 +124,15 @@ export default {
   padding: 0;
 }
 .top {
-  height: 3rem;
-  margin-left: 20px;
-  margin-top: 20px;
+  height: 3.5rem;
+  width: 20rem;
+  margin-left: 25px;
+  margin-top: 30px;
   display: flex;
+  border-radius: 5px;
 }
 .van-img {
-  margin-left: 5px;
+  margin-left: 15px;
 }
 .top p {
   margin-left: 10px;
@@ -147,7 +143,7 @@ export default {
 }
 .van-list {
   width: 90%;
-  height: 30px;
+  height: 40px;
   display: flex;
   border-bottom: 1px solid #666666;
   margin-top: 2px;
@@ -155,11 +151,11 @@ export default {
 }
 .van-icon {
   margin-left: 10px;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 .van-cell {
-  line-height: 30px;
-  padding-left: 10px;
+  line-height: 40px;
+  padding-left: 13px;
 }
 .van-icon-arrow {
   margin-right: 15px;

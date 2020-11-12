@@ -164,6 +164,9 @@ export default {
 .van-hairline--bottom::after {
   border-bottom-width: 0px;
 }
+.van-nav-bar {
+  box-shadow: none;
+}
 .page {
   height: 100%;
   width: 100%;

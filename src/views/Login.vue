@@ -1,33 +1,41 @@
 <template>
-  <div class="login-content">
-    <div>
-      <img src="../assets/duola.jpg" alt="" />
-    </div>
-    <van-form @submit="onSubmit">
-      <van-field
-        v-model="username"
-        autocomplete="off"
-        name="userName"
-        label="用户名"
-        placeholder="请输入用户名"
-        :rules="[{ required: true }]"
-      />
-      <van-field
-        v-model="password"
-        autocomplete="off"
-        type="password"
-        name="password"
-        label="密码"
-        placeholder="请输入密码"
-        :rules="[{ required: true }]"
-      />
-      <div style="margin: 16px">
-        <van-button round block type="info" native-type="submit">
-          登录
-        </van-button>
+  <div>
+    <van-nav-bar
+      title="用户登录"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    />
+    <div class="login-content">
+      <div>
+        <img src="../assets/duola.jpg" alt="" />
       </div>
-    </van-form>
-    <router-link :to="{ name: 'Reg' }">没有账号，我要注册</router-link>
+      <van-form @submit="onSubmit">
+        <van-field
+          v-model="username"
+          autocomplete="off"
+          name="userName"
+          label="用户名"
+          placeholder="请输入用户名"
+          :rules="[{ required: true }]"
+        />
+        <van-field
+          v-model="password"
+          autocomplete="off"
+          type="password"
+          name="password"
+          label="密码"
+          placeholder="请输入密码"
+          :rules="[{ required: true }]"
+        />
+        <div style="margin: 16px">
+          <van-button round block type="info" native-type="submit">
+            登录
+          </van-button>
+        </div>
+      </van-form>
+      <router-link :to="{ name: 'Reg' }">没有账号，我要注册</router-link>
+    </div>
   </div>
 </template>
 
@@ -48,6 +56,11 @@ export default {
     this.$emit("send", false);
   },
   methods: {
+    onClickLeft() {
+      this.$router.push({
+        name: "Main",
+      });
+    },
     async onSubmit(values) {
       //调接口
       const res = await loginApi(values);
@@ -98,6 +111,11 @@ export default {
 </script>
 
 <style>
+.van-nav-bar {
+  line-height: 46px;
+  box-shadow: 0 1px 2px 1px #eeeeee;
+  font-size: 20px;
+}
 .login-content {
   display: flex;
   flex-direction: column;

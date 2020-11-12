@@ -14,6 +14,7 @@
         :data-id="item.movie.id"
       >
         <van-checkbox v-model="item.checked"> </van-checkbox>
+        <i class="iconfont"></i>
         <van-card
           :desc="item.date + '      ' + item.movie.views + '人已收藏'"
           :title="item.movie.name"
@@ -118,7 +119,8 @@ export default {
     //向接口数据中添加收藏时间 checked选中状态
     this.movies = res.map((item) => {
       //将时间戳改为一般时间
-      let times = new Date(item.updatedAt);
+      let times = new Date(item.createdAt);
+      // let times = new Date(1605100776318);
       //改时间格式2020-11-10 20:22:16
       let day = times.toLocaleDateString().replace(/\//g, "-");
       let time = times.toTimeString().substr(0, 8);
@@ -140,6 +142,12 @@ export default {
 </script>
 
 <style scoped>
+.wrap .topheader > h1 {
+  display: none;
+}
+.wrap h1[data-v-d9ae3272] {
+  display: none;
+}
 .content {
   display: flex;
   flex-direction: column;
@@ -149,8 +157,6 @@ export default {
 }
 .van-nav-bar {
   line-height: 46px;
-}
-.van-nav-bar {
   box-shadow: 0 1px 1px 0px #eeeeee;
   font-size: 20px;
 }
@@ -161,6 +167,36 @@ export default {
 .collectMovies {
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.iconfont {
+  width: 30px;
+  height: 30px;
+  display: block;
+  background-color: rgba(250, 248, 248, 0.95);
+  border-radius: 50%;
+  position: absolute;
+  top: 105px;
+  left: 101px;
+  z-index: 999;
+}
+.iconfont::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 4px;
+  margin-left: 11px;
+  border-width: 9px 0 9px 11px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgb(63, 54, 54);
 }
 .van-card {
   width: 336px;
@@ -184,7 +220,8 @@ export default {
   color: #2e2e2e;
   font-family: SimHei;
   font-weight: 600;
-  max-width: 180px;
+  width: 145px;
+  text-overflow: ellipsis;
 }
 .van-card__desc {
   margin-top: 10px;
