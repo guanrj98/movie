@@ -56,15 +56,21 @@
       @load="onLoad"
       class="movielist"
     >
-      <van-card
+      <div
+        style="position:relative"
         v-for="item in pageData.list"
         :key="item.id"
-        :desc="item.desc"
-        :title="item.name"
-        :thumb="item.coverImage"
         @click="toDetails(item.id)"
-        class="movie"
-      />
+      >
+        <van-card
+          :desc="item.desc"
+          :title="item.name"
+          :thumb="item.coverImage"
+          class="movie"
+        >
+        </van-card>
+        <i class="iconfont"></i>
+      </div>
     </van-list>
   </div>
 </template>
@@ -93,7 +99,9 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: "Main",
+      });
     },
     async onLoad(id) {
       if (id) {
@@ -211,5 +219,33 @@ export default {
   -webkit-line-clamp: 4;
   overflow: hidden;
   white-space: pre-wrap;
+}
+.iconfont {
+  width: 30px;
+  height: 30px;
+  display: block;
+  background-color: rgba(250, 248, 248, 0.95);
+  border-radius: 50%;
+  position: absolute;
+  top: 125px;
+  left: 98px;
+  z-index: 999;
+}
+.iconfont::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 4px;
+  margin-left: 11.5px;
+  border-width: 9px 0 9px 11px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgb(63, 54, 54);
 }
 </style>
