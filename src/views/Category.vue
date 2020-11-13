@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="cat-content">
     <div
       v-for="item in categories"
       :key="item.id"
@@ -50,15 +50,17 @@ export default {
 .float-l {
   float: left;
 }
-.content {
+.cat-content {
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 .item {
+  float: left;
   width: 30%;
   height: 33%;
-  margin: 2em 1.5%;
+  margin-left: 2%;
+  margin-top: 10%;
+  margin-bottom: 0px;
   position: relative;
   text-align: center;
 }

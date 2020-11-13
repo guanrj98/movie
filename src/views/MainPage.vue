@@ -21,10 +21,25 @@
         </van-grid-item>
       </van-grid>
     </div>
+    <h4 class="hot">最热电影</h4>
+    <div class="newMovie">
+      <van-grid :border="false" :column-num="6" class="moviesgrid">
+        <van-grid-item
+          v-for="item in hotMovies"
+          :key="item.id"
+          :text="nameSplice(item.name)"
+          :icon="item.coverImage"
+          :to="{ name: 'Details', query: { movieId: item.id } }"
+        >
+          <!-- <van-image :src="item.coverImage" /> -->
+        </van-grid-item>
+      </van-grid>
+    </div>
   </div>
 </template>
 
 <script>
+import { getMoviesByView } from "@/utils/GetMoviesBy";
 import { getMoviesApi } from "@/services/movies";
 export default {
   data() {
@@ -52,6 +67,7 @@ export default {
         },
       ],
       movies: [],
+      hotMovies: [],
     };
   },
   async created() {
@@ -62,6 +78,8 @@ export default {
     // console.log(list);
     this.movies = list.list;
     // console.log(this.movies);
+    this.hotMovies = await getMoviesByView();
+    this.hotMovies = this.hotMovies.slice(0, 12);
   },
   methods: {
     nameSplice(name) {
@@ -132,5 +150,8 @@ h4 {
 }
 .van-grid-item__text {
   font-size: 15px;
+}
+.hot {
+  margin-top: 0%;
 }
 </style>

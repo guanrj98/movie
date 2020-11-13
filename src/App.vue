@@ -53,7 +53,7 @@ export default {
       this.needHeader = res;
     },
     changeImg() {
-      console.log(this.active);
+      // console.log(this.active);
       if (this.active == "list") {
         this.listBarIco = movies1;
       } else {

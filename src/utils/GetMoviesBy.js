@@ -10,3 +10,10 @@ export async function getMoviesByKeyword(keyword) {
   })
   return targetMovies;
 }
+
+export async function getMoviesByView() {
+  let movies = await getMoviesApi({ per: 250 });
+  movies = movies.list;
+  movies.sort((a, b) => { return b.views - a.views });
+  return movies;
+}
