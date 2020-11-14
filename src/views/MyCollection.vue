@@ -112,11 +112,12 @@ export default {
     },
   },
   async created() {
+    this.$emit("needtabbar", false);
     // 事件派发
     this.$emit("send", false);
     // 调取接口获取收藏页数据 并构建dom树
     const res = await getCollectionApi();
-    console.log(res);
+    // console.log(res);
     //向接口数据中添加收藏时间 checked选中状态
     this.movies = res.map((item) => {
       //将时间戳改为一般时间

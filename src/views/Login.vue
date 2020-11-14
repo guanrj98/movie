@@ -54,6 +54,7 @@ export default {
   },
   created() {
     this.$emit("send", false);
+    this.$emit("needtabbar", false);
   },
   methods: {
     onClickLeft() {
@@ -65,8 +66,8 @@ export default {
       //调接口
       const res = await loginApi(values);
       // console.log(values);
-      console.log(values);
-      console.log(res);
+      // console.log(values);
+      // console.log(res);
       //登录成功
       if (res.code === 1) {
         setToken(res.token);
@@ -94,8 +95,8 @@ export default {
             name: "Main",
           });
         }
-        localStorage.removeItem("targetPage");
-        localStorage.removeItem("targetPageQuery");
+        // localStorage.removeItem("targetPage");
+        // localStorage.removeItem("targetPageQuery");
       }
       //登录失败
       else {

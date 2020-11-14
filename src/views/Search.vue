@@ -43,6 +43,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("needtabbar", false);
     this.$emit("send", false);
     this.keyword = this.$route.query.kw;
     if (this.keyword) {

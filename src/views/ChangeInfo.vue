@@ -64,13 +64,13 @@ export default {
 
     async afterRead(files) {
       // 此时可以自行将文件上传至服务器
-      console.log("图片信息" + files);
+      // console.log("图片信息" + files);
       const data = new FormData();
       data.append("file", files.file);
       const httpImg = await getImgUrl(data);
-      console.log(httpImg);
+      // console.log(httpImg);
       //截取图片地址
-      console.log(httpImg.fileName.split(".tmp")[1]);
+      // console.log(httpImg.fileName.split(".tmp")[1]);
       this.avatar = httpImg.fileName.split(".tmp")[1];
     },
     async onSubmit() {
@@ -92,6 +92,7 @@ export default {
   },
   //页面创建获取用户信息展示
   async created() {
+    this.$emit("needtabbar", false);
     this.$emit("send", false);
     const res = await getUserInfo();
     this.nickName = res.nickName;

@@ -40,27 +40,7 @@
       color=" rgba(63, 0, 255, 0.5)"
       class="topnav"
     >
-      <van-tab title="全部" name="all">
-        <!-- <van-list
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-        >
-          <div
-            class="movie"
-            v-for="item in movies"
-            :key="item.id"
-            :title="item.name"
-          >
-            <img :src="item.coverImage" :alt="item.name" />
-            <div>
-              <h5>{{ item.name }}</h5>
-              <p>{{ item.desc }}</p>
-            </div>
-          </div>
-        </van-list> -->
-      </van-tab>
+      <van-tab title="全部" name="all"></van-tab>
       <van-tab
         v-for="cate in categories"
         :key="cate.id"
@@ -116,6 +96,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("needtabbar", true);
     this.$emit("send", false);
     this.active = this.$route.query.category_id || "all";
     // console.log(this.active);

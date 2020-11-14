@@ -99,6 +99,7 @@ export default {
     },
   },
   async created() {
+    this.$emit("needtabbar", true);
     this.$emit("send", false);
     // console.log(getLocalPassword());
     const res = await getUserInfo();

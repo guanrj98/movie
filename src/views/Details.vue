@@ -66,6 +66,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("needtabbar", true);
     this.$emit("send", false);
     if (this.$route.query.movieId) {
       this.movieId = this.$route.query.movieId;
@@ -103,7 +104,7 @@ export default {
           this.col = this.collec.noColl;
           // console.log("未添加");
         }
-        console.log(this.col);
+        // console.log(this.col);
       } else {
         //未登录，默认显示未收藏
         this.col = this.collec.noColl;

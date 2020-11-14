@@ -71,6 +71,7 @@ export default {
     };
   },
   async created() {
+    this.$emit("needtabbar", true);
     this.$emit("send", true);
     const list = await getMoviesApi({
       per: 12,

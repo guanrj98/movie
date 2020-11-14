@@ -54,6 +54,7 @@ export default {
     };
   },
   created() {
+    this.$emit("needtabbar", false);
     this.$emit("send", false);
   },
   methods: {

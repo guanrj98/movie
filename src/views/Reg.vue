@@ -121,6 +121,7 @@ export default {
     };
   },
   created() {
+    this.$emit("needtabbar", false);
     this.$emit("send", false);
   },
   methods: {
@@ -131,15 +132,15 @@ export default {
     },
     async afterRead(files) {
       // 此时可以自行将文件上传至服务器
-      console.log("图片信息" + files);
+      // console.log("图片信息" + files);
       const data = new FormData();
       data.append("file", files.file);
       //调取接口
       const httpImg = await getImgUrl(data);
       //截取图片地址
-      console.log(httpImg.fileName.split(".tmp")[1]);
+      // console.log(httpImg.fileName.split(".tmp")[1]);
       this.imageUrl = httpImg.fileName.split(".tmp")[1];
-      console.log(this.fileList);
+      // console.log(this.fileList);
     },
     async onSubmit(values) {
       values = { ...values, avatar: this.imageUrl };
@@ -150,11 +151,11 @@ export default {
         });
         return;
       }
-      console.log(values);
-      console.log("submit");
+      // console.log(values);
+      // console.log("submit");
       try {
         const regmess = await regApi(values);
-        console.log(regmess);
+        // console.log(regmess);
         if (regmess.code === 1) {
           //注册成功将出现一个弹出框
           this.show = true;

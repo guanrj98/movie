@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <topHeader class="topheader" v-show="needHeader"></topHeader>
-    <router-view class="content" @send="getmsg"></router-view>
+    <router-view
+      class="content"
+      @send="getmsg"
+      @needtabbar="ntabbar"
+    ></router-view>
     <van-tabbar
+      v-show="needTabBar"
       v-model="active"
       route
-      @change="changeImg()"
       :fixed="false"
       class="navbar"
       active-color="rgba(63, 0, 255, 0.6)"
@@ -13,15 +17,26 @@
       <van-tabbar-item name="main" :to="{ name: 'Main' }" icon="wap-home-o"
         >首页</van-tabbar-item
       >
-      <van-tabbar-item
+      <!-- <van-tabbar-item
         name="category"
         :to="{ name: 'Category' }"
         :icon="cateBarIco"
         >分类</van-tabbar-item
-      >
-      <van-tabbar-item name="list" :to="{ name: 'List' }" :icon="listBarIco"
-        >影库</van-tabbar-item
-      >
+      > -->
+      <van-tabbar-item name="category" :to="{ name: 'Category' }">
+        <span>分类</span>
+        <template #icon="props">
+          <img
+            :src="props.active ? categoryicon.active : categoryicon.inactive"
+          />
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="list" :to="{ name: 'List' }">
+        <span>影库</span>
+        <template #icon="props">
+          <img :src="props.active ? movieicon.active : movieicon.inactive" />
+        </template>
+      </van-tabbar-item>
       <van-tabbar-item name="mypage" :to="{ name: 'MyPage' }" icon="contact"
         >我的</van-tabbar-item
       >
@@ -46,24 +61,23 @@ export default {
       listBarIco: movies,
       active: "main",
       needHeader: true,
+      needTabBar: true,
+      categoryicon: {
+        active: classico1,
+        inactive: classico,
+      },
+      movieicon: {
+        active: movies1,
+        inactive: movies,
+      },
     };
   },
   methods: {
     getmsg(res) {
       this.needHeader = res;
     },
-    changeImg() {
-      // console.log(this.active);
-      if (this.active == "list") {
-        this.listBarIco = movies1;
-      } else {
-        this.listBarIco = movies;
-      }
-      if (this.active == "category") {
-        this.cateBarIco = classico1;
-      } else {
-        this.cateBarIco = classico;
-      }
+    ntabbar(res) {
+      this.needTabBar = res;
     },
   },
 };
