@@ -6,8 +6,8 @@
       class="float-l item"
       @click="jump(item.id)"
     >
-      <img src="item.coverImage" alt="" />
-      <div class="mk" v-show="haveImg(item.coverImage)"></div>
+      <img :src="item.coverImage" alt="" class="categorycoverimg" />
+      <div class="mk"></div>
       <span class="word">{{ item.name }}</span>
     </div>
   </div>
@@ -15,6 +15,7 @@
 
 <script>
 import { getCategoriesApi } from "@/services/categories";
+import { getMoviesApi } from "@/services/movies";
 export default {
   data() {
     return {
@@ -26,6 +27,14 @@ export default {
     this.$emit("send", true);
     const list = await getCategoriesApi();
     this.categories = list;
+    // console.log(this.categories);
+    this.categories.forEach(async (c) => {
+      const res = await getMoviesApi({
+        category: c.id,
+        per: 1,
+      });
+      c.coverImage = res.list[0].coverImage;
+    });
   },
   methods: {
     haveImg(img) {
@@ -74,7 +83,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #39a9ed;
+  background-color: #292b2c73;
   font-size: 3em;
   writing-mode: vertical-lr;
 }
