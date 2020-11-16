@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mc">
     <van-nav-bar
       title="收藏列表"
       left-text="返回"
@@ -70,7 +70,7 @@ export default {
           arr.push(item.movie.id);
         }
       });
-      console.log(arr);
+      // console.log(arr);
       //遍历所有选中状态的影片
       for (var i = 0; i < arr.length; i++) {
         console.log(arr[i]);
@@ -83,7 +83,7 @@ export default {
           }
         });
       }
-      console.log("点击了取消收藏");
+      // console.log("点击了取消收藏");
     },
   },
   // 计算属性
@@ -132,7 +132,7 @@ export default {
         checked: false,
       };
     });
-    console.log(this.movies);
+    // console.log(this.movies);
   },
   mounted() {
     //将价格.00移除
@@ -144,6 +144,9 @@ export default {
 </script>
 
 <style scoped>
+.mc {
+  overflow: hidden;
+}
 .wrap .topheader > h1 {
   display: none;
 }
@@ -153,13 +156,15 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .van-nav-bar__title .van-ellipsis {
   font-size: 20px;
 }
 .van-nav-bar {
-  line-height: 46px;
-  box-shadow: 0 1px 1px 0px #eeeeee;
+  height: 50px;
+  line-height: 50px;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
   font-size: 20px;
 }
 .contentBottom {
@@ -181,7 +186,7 @@ export default {
   position: absolute;
   top: 105px;
   left: 101px;
-  z-index: 999;
+  z-index: 1;
 }
 .iconfont::after {
   content: "";
@@ -238,6 +243,12 @@ export default {
   padding: 0 3px;
 }
 .van-submit-bar__bar {
-  line-height: 50px;
+  height: 55px;
+  line-height: 55px;
+}
+.van-submit-bar {
+  position: sticky;
+  border-top: 1px solid rgba(63, 0, 255, 0.5);
+  /* box-shadow: 0 -1px 1.6vw -0.6vw rgb(82, 79, 79); */
 }
 </style>

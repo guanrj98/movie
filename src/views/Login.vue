@@ -22,7 +22,9 @@
         <van-field
           v-model="password"
           autocomplete="off"
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
+          :right-icon="showPassword ? 'eye-o' : 'closed-eye'"
+          @click-right-icon="showPassword = !showPassword"
           name="password"
           label="密码"
           placeholder="请输入密码"
@@ -48,6 +50,7 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
+      showPassword: false,
       username: "",
       password: "",
     };
@@ -65,9 +68,6 @@ export default {
     async onSubmit(values) {
       //调接口
       const res = await loginApi(values);
-      // console.log(values);
-      // console.log(values);
-      // console.log(res);
       //登录成功
       if (res.code === 1) {
         setToken(res.token);
@@ -113,8 +113,9 @@ export default {
 
 <style>
 .van-nav-bar {
-  line-height: 46px;
-  box-shadow: 0 1px 2px 1px #eeeeee;
+  /* line-height: 46px; */
+  height: 50px;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
   font-size: 20px;
 }
 .login-content {

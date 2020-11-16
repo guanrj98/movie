@@ -131,4 +131,8 @@ export default {
   display: flex;
   align-items: baseline;
 }
+.van-cell__value {
+  border-bottom: 1px solid rgb(211, 199, 199);
+  padding: 8px 0;
+}
 </style>

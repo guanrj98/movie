@@ -116,10 +116,13 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
+.van-nav-bar {
+  height: 50px;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
+}
 .van-uploader {
   position: absolute;
-  top: 2px;
+  top: 5px;
   left: 90px;
 }
 
@@ -127,6 +130,6 @@ export default {
   position: relative;
 }
 .bottom {
-  margin-top: 130px;
+  margin-top: 150px;
 }
 </style>
