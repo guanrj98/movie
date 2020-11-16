@@ -265,7 +265,8 @@ export default {
   height: 100%;
 }
 .topbar {
-  box-shadow: 0px 2px 1px 0px #eeeeee;
+  height: 50px;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
 }
 .movielist {
   flex: 1;

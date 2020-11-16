@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft" />
-    <div>
+    <div class="pic">
       <img src="../assets/duola.jpg" alt="" class="img" />
     </div>
     <van-form @submit="onSubmit">
@@ -95,5 +95,15 @@ export default {
   height: 8rem;
   margin-left: 5rem;
   margin-top: 10px;
+}
+.pic {
+  margin: 30px 0;
+}
+.van-cell {
+  padding: 10px 26px;
+}
+.van-nav-bar {
+  height: 50px;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
 }
 </style>

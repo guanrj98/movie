@@ -97,7 +97,7 @@ body {
   padding: 0;
 }
 .topheader {
-  box-shadow: 0px 3px 4px #eeeeee;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
   margin-bottom: 8px;
 }
 #app {

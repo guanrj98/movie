@@ -153,13 +153,15 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .van-nav-bar__title .van-ellipsis {
   font-size: 20px;
 }
 .van-nav-bar {
+  height: 50px;
   line-height: 46px;
-  box-shadow: 0 1px 1px 0px #eeeeee;
+  box-shadow: 0 1px 1.6vw -0.6vw rgb(150, 146, 146);
   font-size: 20px;
 }
 .contentBottom {
@@ -181,7 +183,7 @@ export default {
   position: absolute;
   top: 105px;
   left: 101px;
-  z-index: 999;
+  z-index: 1;
 }
 .iconfont::after {
   content: "";
@@ -238,6 +240,12 @@ export default {
   padding: 0 3px;
 }
 .van-submit-bar__bar {
-  line-height: 50px;
+  height: 55px;
+  line-height: 55px;
+}
+.van-submit-bar {
+  position: sticky;
+  border-top: 1px solid rgba(63, 0, 255, 0.5);
+  /* box-shadow: 0 -1px 1.6vw -0.6vw rgb(82, 79, 79); */
 }
 </style>

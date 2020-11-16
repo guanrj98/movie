@@ -23,12 +23,13 @@ export default {};
   height: 1em;
 }
 .wrap h1 {
+  height: 50px;
   text-indent: 1.3em;
   position: relative;
   font-size: 2em;
   font-weight: 400;
   line-height: 1.5em;
-  height: 1.5em;
+  /* height: 1.5em; */
   font-family: STHupo;
   color: #0008ff63;
 }
