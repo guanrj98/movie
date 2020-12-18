@@ -1,6 +1,7 @@
 <template>
+  <!-- 111 -->
   <div class="page">
-    <!-- :src="movieUrl" -->
+    <!-- :src="movieUrl"1111111 -->
     <van-nav-bar
       left-text=""
       right-text="分享"
@@ -15,6 +16,7 @@
         <span class="cat">{{ movie.category.name }}</span>
       </div>
       <van-tag
+  
         :type="col.style"
         size="large"
         class="cbtn"
